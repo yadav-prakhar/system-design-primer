@@ -1,0 +1,37 @@
+=== FILE EXISTENCE VERIFICATION ===
+
+Main HTML files (docs/*.html):
+12
+
+Solution HTML files (docs/solutions/*.html):
+8
+
+JS files (docs/assets/js/*.js):
+docs/assets/js/lightbox.js
+docs/assets/js/prism-init.js
+docs/assets/js/progress.js
+docs/assets/js/search.js
+docs/assets/js/sidebar.js
+docs/assets/js/theme.js
+
+CSS files (docs/assets/css/*.css):
+docs/assets/css/layout.css
+docs/assets/css/lightbox.css
+docs/assets/css/mobile.css
+docs/assets/css/prism-theme.css
+docs/assets/css/reset.css
+docs/assets/css/solutions.css
+docs/assets/css/variables.css
+
+Image files count:
+36
+
+search-index.json:
+EXISTS
+
+search-index.json preview:
+[
+  {
+    "title": "System Design Solutions",
+    "url": "/solutions.html",
+    "content": "System Design Solutions Common system design interview questions with sample discussions, code, and diagrams. System Design Interview Questions Design Pastebin.com (or Bit.ly) Medium Design a URL shortening service like Pastebin or Bit.ly. Hash table SQL Cache View Solution Design Twitter Timeline and Search Hard Design Twitter's timeline and search functionality. Fan-out Timeline Search View Solution Design a Web Crawler Medium Design a web crawler that efficiently crawls web pages. BFS MapReduce View Solution Design Mint.com Medium Design a personal finance management application. SQL ETL View Solution Design Social Network Data Structures Medium Design the data structures for a social network. Graph DB BFS View Solution Design a Key-Value Store for Search Medium Design a key-value store for a search engine. Key-value NoSQL View Solution Design Amazon Sales Ranking Easy Design Amazon's sales ranking by category feature. Ranking SQL View Solution Scale to Millions on AWS Hard Design a system that scales to millions of users on AWS. AWS Scaling View Solution Object-Oriented Design Interview Questions Note: This section is under development Design a Hash Map OO Design Design a hash map with collision handling. View Solution Design a LRU Cache OO Design Design a least recently used cache. View Solution Design a Call Center OO Design Design a call center with employees and calls. View Solution"

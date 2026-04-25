@@ -1,0 +1,104 @@
+:root {
+  /* These are overrides for Prism's CSS variables. */
+  --prism-foreground: var(--text-color, #eaeaea);
+  --prism-muted: var(--muted-text-color, #b7b7b7);
+  --prism-background: var(--code-background-color, #0b0b0f);
+  --prism-border: var(--code-border-color, #2a2a2a);
+
+  /* Token colors (brutalist / high-contrast). */
+  --prism-comment: #6a9955;
+  --prism-string: #ce9178;
+  --prism-number: #b5cea8;
+  --prism-boolean: #569cd6;
+  --prism-function: #dcdcaa;
+  --prism-keyword: #c586c0;
+  --prism-operator: #d4d4d4;
+  --prism-punctuation: #e5e5e5;
+  --prism-class-name: #4ec9b0;
+}
+
+/* Base code styling */
+pre,
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+pre {
+  background: var(--prism-background);
+  color: var(--prism-foreground);
+  border: 1px solid var(--prism-border);
+  padding: 0.75rem;
+  margin: 1rem 0;
+  overflow: auto;
+  border-radius: 0;
+}
+
+code {
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+}
+
+/* Prism default tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--prism-comment);
+}
+
+.token.punctuation {
+  color: var(--prism-punctuation);
+}
+
+.token.property,
+.token.selector,
+.token.tag,
+.token.boolean {
+  color: var(--prism-boolean);
+}
+
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: var(--prism-string);
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+  color: var(--prism-operator);
+}
+
+.token.atrule,
+.token.keyword {
+  color: var(--prism-keyword);
+}
+
+.token.regex,
+.token.important {
+  color: var(--prism-number);
+}
+
+.token.important,
+.token.bold {
+  font-weight: 700;
+}
+
+.token.entity,
+.token.number {
+  color: var(--prism-number);
+}
+
+.token.variable {
+  color: var(--prism-foreground);
+}
+
+.token.function {
+  color: var(--prism-function);
+}
+
+.token.class-name {
+  color: var(--prism-class-name);
+}

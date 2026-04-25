@@ -1,0 +1,10 @@
+Created: /home/prakhar/Workspace/system-design-primer/docs/solutions/social_graph.html
+Created: /home/prakhar/Workspace/system-design-primer/docs/solutions/query_cache.html
+Created: /home/prakhar/Workspace/system-design-primer/docs/solutions/sales_rank.html
+Created: /home/prakhar/Workspace/system-design-primer/docs/solutions/scaling_aws.html
+Created: /home/prakhar/Workspace/system-design-primer/docs/resources.html
+
+=== Summary ===
+Sections parsed: 29
+Images copied: 36
+Pages generated in: /home/prakhar/Workspace/system-design-primer/docs

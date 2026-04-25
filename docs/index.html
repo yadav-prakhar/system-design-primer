@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>System Design Primer</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <button
+        class="hamburger-menu"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          
+          <li class="nav-item">
+            <a href="dns.html">DNS</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cdn.html">CDN</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="communication.html">Communication</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="solutions.html">Solutions</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <section id="motivation">
+        <h2>Motivation</h2>
+        <p>> Learn how to design large-scale systems.<br />><br />> Prep for the system design interview.</p><h3>Learn how to design large-scale systems</h3><p>Learning how to design scalable systems will help you become a better engineer.</p><p>System design is a broad topic.  There are a <strong>vast number of resources scattered throughout the web</strong> on system design principles.</p><p>This repo is an <strong>organized collection</strong> of resources to help you learn how to build systems at scale.</p><h3>Learn from the open source community</h3><p>This is a continually updated, open source project.</p><p><a href="#contributing">Contributions</a> are welcome!</p><h3>Prep for the system design interview</h3><p>In addition to coding interviews, system design is a <strong>required component</strong> of the <strong>technical interview process</strong> at many tech companies.</p><p><strong>Practice common system design interview questions</strong> and <strong>compare</strong> your results with <strong>sample solutions</strong>: discussions, code, and diagrams.</p><p>Additional topics for interview prep:</p><p><em> <a href="#study-guide">Study guide</a><br /></em> <a href="#how-to-approach-a-system-design-interview-question">How to approach a system design interview question</a><br /><em> <a href="#system-design-interview-questions-with-solutions">System design interview questions, <strong>with solutions</strong></a><br /></em> <a href="#object-oriented-design-interview-questions-with-solutions">Object-oriented design interview questions, <strong>with solutions</strong></a><br />* <a href="#additional-system-design-interview-questions">Additional system design interview questions</a></p>
+      </section>
+<section id="anki-flashcards">
+        <h2>Anki flashcards</h2>
+        <p align="center"><br />  <img src="./assets/images/zdCAkB3.png" class="diagram" loading="lazy" /><br />  <br/><br /></p></p><p>The provided <a href="https://apps.ankiweb.net/">Anki flashcard decks</a> use spaced repetition to help you retain key system design concepts.</p><p><em> <a href="https://github.com/donnemartin/system-design-primer/tree/master/resources/flash_cards/System%20Design.apkg">System design deck</a><br /></em> <a href="https://github.com/donnemartin/system-design-primer/tree/master/resources/flash_cards/System%20Design%20Exercises.apkg">System design exercises deck</a><br /><em> <a href="https://github.com/donnemartin/system-design-primer/tree/master/resources/flash_cards/OO%20Design.apkg">Object oriented design exercises deck</a></p><p>Great for use while on-the-go.</p><h3>Coding Resource: Interactive Coding Challenges</h3><p>Looking for resources to help you prep for the <a href="https://github.com/donnemartin/interactive-coding-challenges"><strong>Coding Interview</strong></a>?</p><p><p align="center"><br />  <img src="./assets/images/b4YtAEN.png" class="diagram" loading="lazy" /><br />  <br/><br /></p></p><p>Check out the sister repo <a href="https://github.com/donnemartin/interactive-coding-challenges"><strong>Interactive Coding Challenges</strong></a>, which contains an additional Anki deck:</p><p></em> <a href="https://github.com/donnemartin/interactive-coding-challenges/tree/master/anki_cards/Coding.apkg">Coding deck</a>
+      </section>
+<section id="contributing">
+        <h2>Contributing</h2>
+        <p>> Learn from the community.</p><p>Feel free to submit pull requests to help:</p><p><em> Fix errors<br /></em> Improve sections<br /><em> Add new sections<br /></em> <a href="https://github.com/donnemartin/system-design-primer/issues/28">Translate</a></p><p>Content that needs some polishing is placed <a href="#under-development">under development</a>.</p><p>Review the <a href="CONTRIBUTING.md">Contributing Guidelines</a>.</p>
+      </section>
+<section id="index-of-system-design-topics">
+        <h2>Index of system design topics</h2>
+        <p>> Summaries of various system design topics, including pros and cons.  <strong>Everything is a trade-off</strong>.<br />><br />> Each section contains links to more in-depth resources.</p><p><p align="center"><br />  <img src="./assets/images/jrUBAF7.png" class="diagram" loading="lazy" /><br />  <br/><br /></p></p><p><em> <a href="#system-design-topics-start-here">System design topics: start here</a><br />    </em> <a href="#step-1-review-the-scalability-video-lecture">Step 1: Review the scalability video lecture</a><br />    <em> <a href="#step-2-review-the-scalability-article">Step 2: Review the scalability article</a><br />    </em> <a href="#next-steps">Next steps</a><br /><em> <a href="#performance-vs-scalability">Performance vs scalability</a><br /></em> <a href="#latency-vs-throughput">Latency vs throughput</a><br /><em> <a href="#availability-vs-consistency">Availability vs consistency</a><br />    </em> <a href="#cap-theorem">CAP theorem</a><br />        <em> <a href="#cp---consistency-and-partition-tolerance">CP - consistency and partition tolerance</a><br />        </em> <a href="#ap---availability-and-partition-tolerance">AP - availability and partition tolerance</a><br /><em> <a href="#consistency-patterns">Consistency patterns</a><br />    </em> <a href="#weak-consistency">Weak consistency</a><br />    <em> <a href="#eventual-consistency">Eventual consistency</a><br />    </em> <a href="#strong-consistency">Strong consistency</a><br /><em> <a href="#availability-patterns">Availability patterns</a><br />    </em> <a href="#fail-over">Fail-over</a><br />    <em> <a href="#replication">Replication</a><br />    </em> <a href="#availability-in-numbers">Availability in numbers</a><br /><em> <a href="#domain-name-system">Domain name system</a><br /></em> <a href="#content-delivery-network">Content delivery network</a><br />    <em> <a href="#push-cdns">Push CDNs</a><br />    </em> <a href="#pull-cdns">Pull CDNs</a><br /><em> <a href="#load-balancer">Load balancer</a><br />    </em> <a href="#active-passive">Active-passive</a><br />    <em> <a href="#active-active">Active-active</a><br />    </em> <a href="#layer-4-load-balancing">Layer 4 load balancing</a><br />    <em> <a href="#layer-7-load-balancing">Layer 7 load balancing</a><br />    </em> <a href="#horizontal-scaling">Horizontal scaling</a><br /><em> <a href="#reverse-proxy-web-server">Reverse proxy (web server)</a><br />    </em> <a href="#load-balancer-vs-reverse-proxy">Load balancer vs reverse proxy</a><br /><em> <a href="#application-layer">Application layer</a><br />    </em> <a href="#microservices">Microservices</a><br />    <em> <a href="#service-discovery">Service discovery</a><br /></em> <a href="#database">Database</a><br />    <em> <a href="#relational-database-management-system-rdbms">Relational database management system (RDBMS)</a><br />        </em> <a href="#master-slave-replication">Master-slave replication</a><br />        <em> <a href="#master-master-replication">Master-master replication</a><br />        </em> <a href="#federation">Federation</a><br />        <em> <a href="#sharding">Sharding</a><br />        </em> <a href="#denormalization">Denormalization</a><br />        <em> <a href="#sql-tuning">SQL tuning</a><br />    </em> <a href="#nosql">NoSQL</a><br />        <em> <a href="#key-value-store">Key-value store</a><br />        </em> <a href="#document-store">Document store</a><br />        <em> <a href="#wide-column-store">Wide column store</a><br />        </em> <a href="#graph-database">Graph Database</a><br />    <em> <a href="#sql-or-nosql">SQL or NoSQL</a><br /></em> <a href="#cache">Cache</a><br />    <em> <a href="#client-caching">Client caching</a><br />    </em> <a href="#cdn-caching">CDN caching</a><br />    <em> <a href="#web-server-caching">Web server caching</a><br />    </em> <a href="#database-caching">Database caching</a><br />    <em> <a href="#application-caching">Application caching</a><br />    </em> <a href="#caching-at-the-database-query-level">Caching at the database query level</a><br />    <em> <a href="#caching-at-the-object-level">Caching at the object level</a><br />    </em> <a href="#when-to-update-the-cache">When to update the cache</a><br />        <em> <a href="#cache-aside">Cache-aside</a><br />        </em> <a href="#write-through">Write-through</a><br />        <em> <a href="#write-behind-write-back">Write-behind (write-back)</a><br />        </em> <a href="#refresh-ahead">Refresh-ahead</a><br /><em> <a href="#asynchronism">Asynchronism</a><br />    </em> <a href="#message-queues">Message queues</a><br />    <em> <a href="#task-queues">Task queues</a><br />    </em> <a href="#back-pressure">Back pressure</a><br /><em> <a href="#communication">Communication</a><br />    </em> <a href="#transmission-control-protocol-tcp">Transmission control protocol (TCP)</a><br />    <em> <a href="#user-datagram-protocol-udp">User datagram protocol (UDP)</a><br />    </em> <a href="#remote-procedure-call-rpc">Remote procedure call (RPC)</a><br />    <em> <a href="#representational-state-transfer-rest">Representational state transfer (REST)</a><br /></em> <a href="#security">Security</a><br /><em> <a href="#appendix">Appendix</a><br />    </em> <a href="#powers-of-two-table">Powers of two table</a><br />    <em> <a href="#latency-numbers-every-programmer-should-know">Latency numbers every programmer should know</a><br />    </em> <a href="#additional-system-design-interview-questions">Additional system design interview questions</a><br />    <em> <a href="#real-world-architectures">Real world architectures</a><br />    </em> <a href="#company-architectures">Company architectures</a><br />    <em> <a href="#company-engineering-blogs">Company engineering blogs</a><br /></em> <a href="#under-development">Under development</a><br /><em> <a href="#credits">Credits</a><br /></em> <a href="#contact-info">Contact info</a><br />* <a href="#license">License</a></p>
+      </section>
+<section id="study-guide">
+        <h2>Study guide</h2>
+        <p>> Suggested topics to review based on your interview timeline (short, medium, long).</p><p><img src="./assets/images/OfVllex.png" alt="Imgur" class="diagram" loading="lazy" /></p><p><strong>Q: For interviews, do I need to know everything here?</strong></p><p><strong>A: No, you don't need to know everything here to prepare for the interview</strong>.</p><p>What you are asked in an interview depends on variables such as:</p><p><em> How much experience you have<br /></em> What your technical background is<br /><em> What positions you are interviewing for<br /></em> Which companies you are interviewing with<br /><em> Luck</p><p>More experienced candidates are generally expected to know more about system design.  Architects or team leads might be expected to know more than individual contributors.  Top tech companies are likely to have one or more design interview rounds.</p><p>Start broad and go deeper in a few areas.  It helps to know a little about various key system design topics.  Adjust the following guide based on your timeline, experience, what positions you are interviewing for, and which companies you are interviewing with.</p><p></em> <strong>Short timeline</strong> - Aim for <strong>breadth</strong> with system design topics.  Practice by solving <strong>some</strong> interview questions.<br /><em> <strong>Medium timeline</strong> - Aim for <strong>breadth</strong> and <strong>some depth</strong> with system design topics.  Practice by solving <strong>many</strong> interview questions.<br /></em> <strong>Long timeline</strong> - Aim for <strong>breadth</strong> and <strong>more depth</strong> with system design topics.  Practice by solving <strong>most</strong> interview questions.</p><p>| | Short | Medium | Long |<br />|---|---|---|---|<br />| Read through the <a href="#index-of-system-design-topics">System design topics</a> to get a broad understanding of how systems work | :+1: | :+1: | :+1: |<br />| Read through a few articles in the <a href="#company-engineering-blogs">Company engineering blogs</a> for the companies you are interviewing with | :+1: | :+1: | :+1: |<br />| Read through a few <a href="#real-world-architectures">Real world architectures</a> | :+1: | :+1: | :+1: |<br />| Review <a href="#how-to-approach-a-system-design-interview-question">How to approach a system design interview question</a> | :+1: | :+1: | :+1: |<br />| Work through <a href="#system-design-interview-questions-with-solutions">System design interview questions with solutions</a> | Some | Many | Most |<br />| Work through <a href="#object-oriented-design-interview-questions-with-solutions">Object-oriented design interview questions with solutions</a> | Some | Many | Most |<br />| Review <a href="#additional-system-design-interview-questions">Additional system design interview questions</a> | Some | Many | Most |</p>
+      </section>
+<section id="how-to-approach-a-system-design-interview-question">
+        <h2>How to approach a system design interview question</h2>
+        <p>> How to tackle a system design interview question.</p><p>The system design interview is an <strong>open-ended conversation</strong>.  You are expected to lead it.</p><p>You can use the following steps to guide the discussion.  To help solidify this process, work through the <a href="#system-design-interview-questions-with-solutions">System design interview questions with solutions</a> section using the following steps.</p><h3>Step 1: Outline use cases, constraints, and assumptions</h3><p>Gather requirements and scope the problem.  Ask questions to clarify use cases and constraints.  Discuss assumptions.</p><p><em> Who is going to use it?<br /></em> How are they going to use it?<br /><em> How many users are there?<br /></em> What does the system do?<br /><em> What are the inputs and outputs of the system?<br /></em> How much data do we expect to handle?<br /><em> How many requests per second do we expect?<br /></em> What is the expected read to write ratio?</p><h3>Step 2: Create a high level design</h3><p>Outline a high level design with all important components.</p><p><em> Sketch the main components and connections<br /></em> Justify your ideas</p><h3>Step 3: Design core components</h3><p>Dive into details for each core component.  For example, if you were asked to <a href="solutions/system_design/pastebin/README.md">design a url shortening service</a>, discuss:</p><p><em> Generating and storing a hash of the full url<br />    </em> <a href="solutions/system_design/pastebin/README.md">MD5</a> and <a href="solutions/system_design/pastebin/README.md">Base62</a><br />    <em> Hash collisions<br />    </em> SQL or NoSQL<br />    <em> Database schema<br /></em> Translating a hashed url to the full url<br />    <em> Database lookup<br /></em> API and object-oriented design</p><h3>Step 4: Scale the design</h3><p>Identify and address bottlenecks, given the constraints.  For example, do you need the following to address scalability issues?</p><p><em> Load balancer<br /></em> Horizontal scaling<br /><em> Caching<br /></em> Database sharding</p><p>Discuss potential solutions and trade-offs.  Everything is a trade-off.  Address bottlenecks using <a href="#index-of-system-design-topics">principles of scalable system design</a>.</p><h3>Back-of-the-envelope calculations</h3><p>You might be asked to do some estimates by hand.  Refer to the <a href="#appendix">Appendix</a> for the following resources:</p><p><em> <a href="http://highscalability.com/blog/2011/1/26/google-pro-tip-use-back-of-the-envelope-calculations-to-choo.html">Use back of the envelope calculations</a><br /></em> <a href="#powers-of-two-table">Powers of two table</a><br /><em> <a href="#latency-numbers-every-programmer-should-know">Latency numbers every programmer should know</a></p><h3>Source(s) and further reading</h3><p>Check out the following links to get a better idea of what to expect:</p><p></em> <a href="https://web.archive.org/web/20210505130322/https://www.palantir.com/2011/10/how-to-rock-a-systems-design-interview/">How to ace a systems design interview</a><br /><em> <a href="http://www.hiredintech.com/system-design">The system design interview</a><br /></em> <a href="https://www.youtube.com/watch?v=ZgdS0EUmn70">Intro to Architecture and Systems Design Interviews</a><br />* <a href="https://leetcode.com/discuss/career/229177/My-System-Design-Template">System design template</a></p>
+      </section>
+<section id="system-design-topics-start-here">
+        <h2>System design topics: start here</h2>
+        <p>New to system design?</p><p>First, you'll need a basic understanding of common principles, learning about what they are, how they are used, and their pros and cons.</p><h3>Step 1: Review the scalability video lecture</h3><p><a href="https://www.youtube.com/watch?v=-W9F__D3oY4">Scalability Lecture at Harvard</a></p><p><em> Topics covered:<br />    </em> Vertical scaling<br />    <em> Horizontal scaling<br />    </em> Caching<br />    <em> Load balancing<br />    </em> Database replication<br />    <em> Database partitioning</p><h3>Step 2: Review the scalability article</h3><p><a href="https://web.archive.org/web/20221030091841/http://www.lecloud.net/tagged/scalability/chrono">Scalability</a></p><p></em> Topics covered:<br />    <em> <a href="https://web.archive.org/web/20220530193911/https://www.lecloud.net/post/7295452622/scalability-for-dummies-part-1-clones">Clones</a><br />    </em> <a href="https://web.archive.org/web/20220602114024/https://www.lecloud.net/post/7994751381/scalability-for-dummies-part-2-database">Databases</a><br />    <em> <a href="https://web.archive.org/web/20230126233752/https://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache">Caches</a><br />    </em> <a href="https://web.archive.org/web/20220926171507/https://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchronism">Asynchronism</a></p><h3>Next steps</h3><p>Next, we'll look at high-level trade-offs:</p><p><em> <strong>Performance</strong> vs <strong>scalability</strong><br /></em> <strong>Latency</strong> vs <strong>throughput</strong><br />* <strong>Availability</strong> vs <strong>consistency</strong></p><p>Keep in mind that <strong>everything is a trade-off</strong>.</p><p>Then we'll dive into more specific topics such as DNS, CDNs, and load balancers.</p>
+      </section>
+<section id="performance-vs-scalability">
+        <h2>Performance vs scalability</h2>
+        <p>A service is <strong>scalable</strong> if it results in increased <strong>performance</strong> in a manner proportional to resources added. Generally, increasing performance means serving more units of work, but it can also be to handle larger units of work, such as when datasets grow.<sup><a href=http://www.allthingsdistributed.com/2006/03/a_word_on_scalability.html>1</a></sup></p><p>Another way to look at performance vs scalability:</p><p><em> If you have a <strong>performance</strong> problem, your system is slow for a single user.<br /></em> If you have a <strong>scalability</strong> problem, your system is fast for a single user but slow under heavy load.</p><h3>Source(s) and further reading</h3><p><em> <a href="http://www.allthingsdistributed.com/2006/03/a_word_on_scalability.html">A word on scalability</a><br /></em> <a href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">Scalability, availability, stability, patterns</a></p>
+      </section>
+<section id="latency-vs-throughput">
+        <h2>Latency vs throughput</h2>
+        <p><strong>Latency</strong> is the time to perform some action or to produce some result.</p><p><strong>Throughput</strong> is the number of such actions or results per unit of time.</p><p>Generally, you should aim for <strong>maximal throughput</strong> with <strong>acceptable latency</strong>.</p><h3>Source(s) and further reading</h3><p>* <a href="https://community.cadence.com/cadence_blogs_8/b/fv/posts/understanding-latency-vs-throughput">Understanding latency vs throughput</a></p>
+      </section>
+<section id="availability-vs-consistency">
+        <h2>Availability vs consistency</h2>
+        <h3>CAP theorem</h3><p><p align="center"><br />  <img src="./assets/images/bgLMI2u.png" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href="https://robertgreiner.com/cap-theorem-revisited">Source: CAP theorem revisited</a></i><br /></p></p><p>In a distributed computer system, you can only support two of the following guarantees:</p><p><em> <strong>Consistency</strong> - Every read receives the most recent write or an error<br /></em> <strong>Availability</strong> - Every request receives a response, without guarantee that it contains the most recent version of the information<br /><em> <strong>Partition Tolerance</strong> - The system continues to operate despite arbitrary partitioning due to network failures</p><p></em>Networks aren't reliable, so you'll need to support partition tolerance.  You'll need to make a software tradeoff between consistency and availability.<em></p><p><h4>CP - consistency and partition tolerance</h4></p><p>Waiting for a response from the partitioned node might result in a timeout error.  CP is a good choice if your business needs require atomic reads and writes.</p><p><h4>AP - availability and partition tolerance</h4></p><p>Responses return the most readily available version of the data available on any node, which might not be the latest.  Writes might take some time to propagate when the partition is resolved.</p><p>AP is a good choice if the business needs to allow for <a href="#eventual-consistency">eventual consistency</a> or when the system needs to continue working despite external errors.</p><h3>Source(s) and further reading</h3><p></em> <a href="https://robertgreiner.com/cap-theorem-revisited/">CAP theorem revisited</a><br /><em> <a href="http://ksat.me/a-plain-english-introduction-to-cap-theorem">A plain english introduction to CAP theorem</a><br /></em> <a href="https://github.com/henryr/cap-faq">CAP FAQ</a><br />* <a href="https://www.youtube.com/watch?v=k-Yaq8AHlFA">The CAP theorem</a>
+      </section>
+<section id="consistency-patterns">
+        <h2>Consistency patterns</h2>
+        <p>With multiple copies of the same data, we are faced with options on how to synchronize them so clients have a consistent view of the data.  Recall the definition of consistency from the <a href="#cap-theorem">CAP theorem</a> - Every read receives the most recent write or an error.</p><h3>Weak consistency</h3><p>After a write, reads may or may not see it.  A best effort approach is taken.</p><p>This approach is seen in systems such as memcached.  Weak consistency works well in real time use cases such as VoIP, video chat, and realtime multiplayer games.  For example, if you are on a phone call and lose reception for a few seconds, when you regain connection you do not hear what was spoken during connection loss.</p><h3>Eventual consistency</h3><p>After a write, reads will eventually see it (typically within milliseconds).  Data is replicated asynchronously.</p><p>This approach is seen in systems such as DNS and email.  Eventual consistency works well in highly available systems.</p><h3>Strong consistency</h3><p>After a write, reads will see it.  Data is replicated synchronously.</p><p>This approach is seen in file systems and RDBMSes.  Strong consistency works well in systems that need transactions.</p><h3>Source(s) and further reading</h3><p>* <a href="http://snarfed.org/transactions_across_datacenters_io.html">Transactions across data centers</a></p>
+      </section>
+<section id="availability-patterns">
+        <h2>Availability patterns</h2>
+        <p>There are two complementary patterns to support high availability: <strong>fail-over</strong> and <strong>replication</strong>.</p><h3>Fail-over</h3><p><h4>Active-passive</h4></p><p>With active-passive fail-over, heartbeats are sent between the active and the passive server on standby.  If the heartbeat is interrupted, the passive server takes over the active's IP address and resumes service.</p><p>The length of downtime is determined by whether the passive server is already running in 'hot' standby or whether it needs to start up from 'cold' standby.  Only the active server handles traffic.</p><p>Active-passive failover can also be referred to as master-slave failover.</p><p><h4>Active-active</h4></p><p>In active-active, both servers are managing traffic, spreading the load between them.</p><p>If the servers are public-facing, the DNS would need to know about the public IPs of both servers.  If the servers are internal-facing, application logic would need to know about both servers.</p><p>Active-active failover can also be referred to as master-master failover.</p><h3>Disadvantage(s): failover</h3><p><em> Fail-over adds more hardware and additional complexity.<br /></em> There is a potential for loss of data if the active system fails before any newly written data can be replicated to the passive.</p><h3>Replication</h3><p><h4>Master-slave and master-master</h4></p><p>This topic is further discussed in the <a href="#database">Database</a> section:</p><p><em> <a href="#master-slave-replication">Master-slave replication</a><br /></em> <a href="#master-master-replication">Master-master replication</a></p><h3>Availability in numbers</h3><p>Availability is often quantified by uptime (or downtime) as a percentage of time the service is available.  Availability is generally measured in number of 9s--a service with 99.99% availability is described as having four 9s.</p><p><h4>99.9% availability - three 9s</h4></p><p>| Duration            | Acceptable downtime|<br />|---------------------|--------------------|<br />| Downtime per year   | 8h 45min 57s       |<br />| Downtime per month  | 43m 49.7s          |<br />| Downtime per week   | 10m 4.8s           |<br />| Downtime per day    | 1m 26.4s           |</p><p><h4>99.99% availability - four 9s</h4></p><p>| Duration            | Acceptable downtime|<br />|---------------------|--------------------|<br />| Downtime per year   | 52min 35.7s        |<br />| Downtime per month  | 4m 23s             |<br />| Downtime per week   | 1m 5s              |<br />| Downtime per day    | 8.6s               |</p><p><h4>Availability in parallel vs in sequence</h4></p><p>If a service consists of multiple components prone to failure, the service's overall availability depends on whether the components are in sequence or in parallel.</p><p>###### In sequence</p><p>Overall availability decreases when two components with availability < 100% are in sequence:</p><pre><code>Availability (Total) = Availability (Foo) <em> Availability (Bar)</code></pre><p>If both <code>Foo</code> and <code>Bar</code> each had 99.9% availability, their total availability in sequence would be 99.8%.</p><p>###### In parallel</p><p>Overall availability increases when two components with availability < 100% are in parallel:</p><pre><code>Availability (Total) = 1 - (1 - Availability (Foo)) </em> (1 - Availability (Bar))</code></pre><p>If both <code>Foo</code> and <code>Bar</code> each had 99.9% availability, their total availability in parallel would be 99.9999%.</p>
+      </section>
+<section id="under-development">
+        <h2>Under development</h2>
+        <p>Interested in adding a section or helping complete one in-progress?  <a href="#contributing">Contribute</a>!</p><p><em> Distributed computing with MapReduce<br /></em> Consistent hashing<br /><em> Scatter gather<br /></em> <a href="#contributing">Contribute</a></p>
+      </section>
+<section id="credits">
+        <h2>Credits</h2>
+        <p>Credits and sources are provided throughout this repo.</p><p>Special thanks to:</p><p><em> <a href="http://www.hiredintech.com/system-design/the-system-design-process/">Hired in tech</a><br /></em> <a href="https://www.amazon.com/dp/0984782850/">Cracking the coding interview</a><br /><em> <a href="http://highscalability.com/">High scalability</a><br /></em> <a href="https://github.com/checkcheckzz/system-design-interview">checkcheckzz/system-design-interview</a><br /><em> <a href="https://github.com/shashank88/system_design">shashank88/system_design</a><br /></em> <a href="https://github.com/mmcgrana/services-engineering">mmcgrana/services-engineering</a><br /><em> <a href="https://gist.github.com/vasanthk/485d1c25737e8e72759f">System design cheat sheet</a><br /></em> <a href="http://dancres.github.io/Pages/">A distributed systems reading list</a><br />* <a href="http://www.puncsky.com/blog/2016-02-13-crack-the-system-design-interview">Cracking the system design interview</a></p>
+      </section>
+<section id="contact-info">
+        <h2>Contact info</h2>
+        <p>Feel free to contact me to discuss any issues, questions, or comments.</p><p>My contact info can be found on my <a href="https://github.com/donnemartin">GitHub page</a>.</p>
+      </section>
+<section id="license">
+        <h2>License</h2>
+        <p><em>I am providing code and resources in this repository to you under an open source license.  Because this is my personal repository, the license you receive to my code and resources is from me and not my employer (Facebook).</em></p><p>    Copyright 2017 Donne Martin</p><p>    Creative Commons Attribution 4.0 International License (CC BY 4.0)</p><p>    http://creativecommons.org/licenses/by/4.0/</p>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+  <script src="./assets/js/sidebar.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

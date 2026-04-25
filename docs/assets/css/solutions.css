@@ -1,0 +1,273 @@
+/* Solutions page card layout styles */
+
+@import url("./variables.css");
+
+/* =========================
+   Solutions Grid Layout
+   ========================= */
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+/* =========================
+   Solution Card Component
+   ========================= */
+.solution-card {
+  border: var(--border-2);
+  border-color: var(--color-stroke);
+  background: var(--color-surface);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.solution-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-hard);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card-title {
+  margin: 0;
+  font-size: var(--font-size-4);
+  font-weight: 700;
+  line-height: var(--line-height-compact);
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.card-description {
+  margin: 0;
+  font-size: var(--font-size-2);
+  color: var(--color-muted);
+  line-height: var(--line-height-normal);
+  flex-grow: 1;
+}
+
+.card-concepts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.concept-tag {
+  font-size: var(--font-size-0);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-surface-2);
+  border: var(--border-1);
+  border-color: var(--color-stroke-soft);
+  font-family: var(--font-mono);
+}
+
+.card-image {
+  margin: var(--space-2) 0;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-link {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-primary-ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: var(--font-size-2);
+  text-align: center;
+  border: var(--border-2);
+  border-color: var(--color-stroke);
+  transition: background 0.15s ease;
+}
+
+.card-link:hover {
+  background: var(--color-accent);
+}
+
+/* =========================
+   Badges
+   ========================= */
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-0);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: var(--border-1);
+}
+
+.badge-difficulty {
+  background: var(--color-surface-2);
+}
+
+.badge-difficulty[data-difficulty="Easy"] {
+  background: var(--color-success);
+  color: var(--color-success-ink);
+  border-color: var(--color-success);
+}
+
+.badge-difficulty[data-difficulty="Medium"] {
+  background: var(--color-warning);
+  color: var(--color-warning-ink);
+  border-color: var(--color-warning);
+}
+
+.badge-difficulty[data-difficulty="Hard"] {
+  background: var(--color-danger);
+  color: var(--color-danger-ink);
+  border-color: var(--color-danger);
+}
+
+.badge-oo {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+
+/* =========================
+   OO Design Cards (under development)
+   ========================= */
+.oo-design-card {
+  opacity: 0.7;
+}
+
+.oo-design-card:hover {
+  opacity: 1;
+}
+
+/* =========================
+   Solution Page Styles
+   ========================= */
+.solution-header {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-2);
+  border-color: var(--color-stroke);
+}
+
+.solution-title {
+  margin: 0 0 var(--space-4) 0;
+  font-size: var(--font-size-7);
+  font-weight: 700;
+  line-height: var(--line-height-compact);
+}
+
+.solution-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.solution-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.solution-meta-label {
+  font-size: var(--font-size-0);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-faint);
+}
+
+.solution-meta-value {
+  font-size: var(--font-size-2);
+  font-family: var(--font-mono);
+}
+
+.solution-concepts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.solution-section {
+  margin: var(--space-8) 0;
+}
+
+.solution-section h2 {
+  font-size: var(--font-size-5);
+  margin: 0 0 var(--space-4) 0;
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-1);
+  border-color: var(--color-stroke-soft);
+}
+
+.solution-section h3 {
+  font-size: var(--font-size-4);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.solution-section h4 {
+  font-size: var(--font-size-3);
+  margin: var(--space-4) 0 var(--space-2) 0;
+}
+
+/* Architecture diagram in solution pages */
+.solution-diagram {
+  margin: var(--space-6) 0;
+  text-align: center;
+}
+
+.solution-diagram img {
+  max-width: 100%;
+  height: auto;
+  border: var(--border-1);
+  border-color: var(--color-stroke-soft);
+}
+
+/* =========================
+   Sidebar Solutions Navigation
+   ========================= */
+.solutions-nav {
+  border-top: var(--border-2);
+  border-color: var(--color-stroke);
+  margin-top: var(--space-4);
+  padding-top: 0;
+}
+
+.solutions-nav .nav-heading {
+  background: var(--color-surface-2);
+}
+
+.solutions-nav .nav-item a {
+  font-size: var(--font-size-1);
+  padding: var(--space-2) var(--space-3);
+}
+
+/* =========================
+   Responsive Adjustments
+   ========================= */
+@media (max-width: 768px) {
+  .solutions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .solution-title {
+    font-size: var(--font-size-5);
+  }
+}

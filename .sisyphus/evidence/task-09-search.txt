@@ -1,0 +1,56 @@
+=== TASK-09: FULL-TEXT SEARCH VERIFICATION ===
+
+Scenario: Search returns results
+  Tool: Bash
+  Steps:
+    1. Check docs/assets/js/search.js exists
+    2. Check docs/search-index.json exists
+    3. Verify Fuse.js CDN in HTML files
+  Expected Result: Search files exist and are linked
+  Evidence:
+    - docs/assets/js/search.js: EXISTS (7186 bytes)
+    - docs/search-index.json: EXISTS (85873 bytes)
+    - Pages with Fuse.js CDN: 20/20
+
+Scenario: Search index structure
+  Tool: Bash
+  Steps:
+    1. cat docs/search-index.json | head -50
+  Expected Result: JSON array with title, url, content fields
+  Evidence:
+    Index structure verified - each entry contains:
+    - title: Page title
+    - url: Relative path to page
+    - content: Extracted text content
+  Pages indexed: 20
+
+=== INDEXED PAGES ===
+/solutions.html - System Design Solutions
+/communication.html - Communication (TCP/UDP/HTTP)
+/load-balancer.html - Load Balancer
+/dns.html - Domain Name System (DNS)
+/asynchronism.html - Asynchronism
+/resources.html - Resources
+/cdn.html - Content Delivery Network (CDN)
+/database.html - Database (RDBMS & NoSQL)
+/cache.html - Cache
+/index.html - System Design Primer
+/appendix.html - Appendix
+/security.html - Security
+/solutions/social_graph.html - Design Social Network Data Structures
+/solutions/scaling_aws.html - Design a System that Scales to Millions of Users
+/solutions/web_crawler.html - Design a Web Crawler
+/solutions/query_cache.html - Design a Key-Value Store for Search Engine
+/solutions/mint.html - Design Mint.com
+/solutions/pastebin.html - Design Pastebin.com (or Bit.ly)
+/solutions/sales_rank.html - Design Amazon's Sales Ranking by Category
+/solutions/twitter.html - Design Twitter Timeline and Search
+
+=== SEARCH FEATURE IMPLEMENTATION ===
+- Fuse.js via CDN: https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js
+- Search index: ./search-index.json (lazy-loaded)
+- Debounce: 300ms
+- Keyboard shortcut: Cmd/Ctrl+K to focus search
+- Fuzzy matching: threshold 0.3
+- Highlighted matches in results
+- "No results" state when no matches

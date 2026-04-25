@@ -1,0 +1,217 @@
+/* Grid-based brutalist layout skeleton */
+
+@import url("./variables.css");
+
+:root {
+  --layout-header-h: 56px;
+  --layout-footer-h: 40px;
+  --layout-sidebar-w: 280px;
+  --layout-gap: 0px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg, #fff);
+  color: var(--color-fg, #000);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 0;
+  z-index: 9999;
+  background: var(--color-fg, #000);
+  color: var(--color-bg, #fff);
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+.site {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--layout-sidebar-w) 1fr;
+  grid-template-rows: var(--layout-header-h) 1fr var(--layout-footer-h);
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+  gap: var(--layout-gap);
+}
+
+.site-header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border-bottom: 2px solid var(--color-border, #000);
+}
+
+/* Keep hamburger button from breaking header alignment */
+.hamburger-menu {
+  margin-left: 12px;
+}
+
+.site-title {
+  display: block;
+  padding: 0 12px;
+  font-weight: 700;
+  line-height: var(--layout-header-h);
+  white-space: nowrap;
+}
+
+.header-tools {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  padding: 0 12px;
+}
+
+.header-search {
+  display: block;
+}
+
+.header-search input {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  border: 2px solid var(--color-border, #000);
+  padding: 0 10px;
+  background: var(--color-bg, #fff);
+  color: var(--color-fg, #000);
+}
+
+.theme-toggle {
+  width: 44px;
+  height: 32px;
+  border: 2px solid var(--color-border, #000);
+  background: transparent;
+  color: var(--color-fg, #000);
+  cursor: pointer;
+}
+
+.progress-indicator {
+  padding: 0 12px;
+  font-weight: 700;
+  line-height: var(--layout-header-h);
+}
+
+.site-sidebar {
+  grid-area: sidebar;
+  border-right: 2px solid var(--color-border, #000);
+  padding: 0;
+}
+
+.site-sidebar nav {
+  display: block;
+}
+
+.nav-heading {
+  margin: 0;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--color-border, #000);
+  font-weight: 700;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item a {
+  display: block;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--color-border, #000);
+  text-decoration: none;
+  color: var(--color-fg, #000);
+}
+
+.site-main {
+  grid-area: main;
+  padding: 12px;
+}
+
+.page-section {
+  border: 2px solid var(--color-border, #000);
+  padding: 12px;
+}
+
+.site-footer {
+  grid-area: footer;
+  border-top: 2px solid var(--color-border, #000);
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footer-left {
+  font-weight: 700;
+}
+
+/* Progress bar styles */
+.progress-bar-container {
+  margin: 0 0 24px 0;
+  padding: 16px;
+  border: 2px solid var(--color-border, #000);
+}
+
+.progress-bar-label {
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.progress-bar {
+  height: 24px;
+  background: var(--color-bg, #fff);
+  border: 2px solid var(--color-border, #000);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-accent, #000);
+  transition: width 0.3s ease;
+}
+
+.reset-progress-btn {
+  margin: 12px 0 0 0;
+  padding: 8px 16px;
+  border: 2px solid var(--color-border, #000);
+  background: transparent;
+  color: var(--color-fg, #000);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.reset-progress-btn:hover {
+  background: var(--color-fg, #000);
+  color: var(--color-bg, #fff);
+}
+
+/* Sidebar progress checkboxes */
+.nav-progress-checkbox {
+  float: left;
+  margin: 2px 8px 0 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}

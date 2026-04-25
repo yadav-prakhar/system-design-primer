@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Communication (TCP/UDP/HTTP)</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          
+          <li class="nav-item">
+            <a href="dns.html">DNS</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cdn.html">CDN</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a href="communication.html">Communication</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="solutions.html">Solutions</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <section id="communication">
+        <h2>Communication</h2>
+        <p align="center"><br />  <img src="./assets/images/5KeocQs.jpg" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://www.escotal.com/osilayer.html>Source: OSI 7 layer model</a></i><br /></p></p><h3>Hypertext transfer protocol (HTTP)</h3><p>HTTP is a method for encoding and transporting data between a client and a server.  It is a request/response protocol: clients issue requests and servers issue responses with relevant content and completion status info about the request.  HTTP is self-contained, allowing requests and responses to flow through many intermediate routers and servers that perform load balancing, caching, encryption, and compression.</p><p>A basic HTTP request consists of a verb (method) and a resource (endpoint).  Below are common HTTP verbs:</p><p>| Verb | Description | Idempotent<em> | Safe | Cacheable |<br />|---|---|---|---|---|<br />| GET | Reads a resource | Yes | Yes | Yes |<br />| POST | Creates a resource or trigger a process that handles data | No | No | Yes if response contains freshness info |<br />| PUT | Creates or replace a resource | Yes | No | No |<br />| PATCH | Partially updates a resource | No | No | Yes if response contains freshness info |<br />| DELETE | Deletes a resource | Yes | No | No |</p><p></em>Can be called many times without different outcomes.</p><p>HTTP is an application layer protocol relying on lower-level protocols such as <strong>TCP</strong> and <strong>UDP</strong>.</p><p><h4>Source(s) and further reading: HTTP</h4></p><p><em> <a href="https://www.nginx.com/resources/glossary/http/">What is HTTP?</a><br /></em> <a href="https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol">Difference between HTTP and TCP</a><br /><em> <a href="https://laracasts.com/discuss/channels/general-discussion/whats-the-differences-between-put-and-patch?page=1">Difference between PUT and PATCH</a></p><h3>Transmission control protocol (TCP)</h3><p><p align="center"><br />  <img src="./assets/images/JdAsdvG.jpg" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1/>Source: How to make a multiplayer game</a></i><br /></p></p><p>TCP is a connection-oriented protocol over an <a href="https://en.wikipedia.org/wiki/Internet_Protocol">IP network</a>.  Connection is established and terminated using a <a href="https://en.wikipedia.org/wiki/Handshaking">handshake</a>.  All packets sent are guaranteed to reach the destination in the original order and without corruption through:</p><p></em> Sequence numbers and <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Checksum_computation">checksum fields</a> for each packet<br /><em> <a href="https://en.wikipedia.org/wiki/Acknowledgement_(data_networks">Acknowledgement</a>) packets and automatic retransmission</p><p>If the sender does not receive a correct response, it will resend the packets.  If there are multiple timeouts, the connection is dropped.  TCP also implements <a href="https://en.wikipedia.org/wiki/Flow_control_(data">flow control</a>) and <a href="https://en.wikipedia.org/wiki/Network_congestion#Congestion_control">congestion control</a>.  These guarantees cause delays and generally result in less efficient transmission than UDP.</p><p>To ensure high throughput, web servers can keep a large number of TCP connections open, resulting in high memory usage.  It can be expensive to have a large number of open connections between web server threads and say, a <a href="https://memcached.org/">memcached</a> server.  <a href="https://en.wikipedia.org/wiki/Connection_pool">Connection pooling</a> can help in addition to switching to UDP where applicable.</p><p>TCP is useful for applications that require high reliability but are less time critical.  Some examples include web servers, database info, SMTP, FTP, and SSH.</p><p>Use TCP over UDP when:</p><p></em> You need all of the data to arrive intact<br /><em> You want to automatically make a best estimate use of the network throughput</p><h3>User datagram protocol (UDP)</h3><p><p align="center"><br />  <img src="./assets/images/yzDrJtA.jpg" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1/>Source: How to make a multiplayer game</a></i><br /></p></p><p>UDP is connectionless.  Datagrams (analogous to packets) are guaranteed only at the datagram level.  Datagrams might reach their destination out of order or not at all.  UDP does not support congestion control.  Without the guarantees that TCP support, UDP is generally more efficient.</p><p>UDP can broadcast, sending datagrams to all devices on the subnet.  This is useful with <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHCP</a> because the client has not yet received an IP address, thus preventing a way for TCP to stream without the IP address.</p><p>UDP is less reliable but works well in real time use cases such as VoIP, video chat, streaming, and realtime multiplayer games.</p><p>Use UDP over TCP when:</p><p></em> You need the lowest latency<br /><em> Late data is worse than loss of data<br /></em> You want to implement your own error correction</p><p><h4>Source(s) and further reading: TCP and UDP</h4></p><p><em> <a href="https://gafferongames.com/post/udp_vs_tcp/">Networking for game programming</a><br /></em> <a href="http://www.cyberciti.biz/faq/key-differences-between-tcp-and-udp-protocols/">Key differences between TCP and UDP protocols</a><br /><em> <a href="http://stackoverflow.com/questions/5970383/difference-between-tcp-and-udp">Difference between TCP and UDP</a><br /></em> <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">Transmission control protocol</a><br /><em> <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">User datagram protocol</a><br /></em> <a href="http://www.cs.bu.edu/~jappavoo/jappavoo.github.com/451/papers/memcache-fb.pdf">Scaling memcache at Facebook</a></p><h3>Remote procedure call (RPC)</h3><p><p align="center"><br />  <img src="./assets/images/iF4Mkb5.png" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://www.puncsky.com/blog/2016-02-13-crack-the-system-design-interview>Source: Crack the system design interview</a></i><br /></p></p><p>In an RPC, a client causes a procedure to execute on a different address space, usually a remote server.  The procedure is coded as if it were a local procedure call, abstracting away the details of how to communicate with the server from the client program.  Remote calls are usually slower and less reliable than local calls so it is helpful to distinguish RPC calls from local calls.  Popular RPC frameworks include <a href="https://developers.google.com/protocol-buffers/">Protobuf</a>, <a href="https://thrift.apache.org/">Thrift</a>, and <a href="https://avro.apache.org/docs/current/">Avro</a>.</p><p>RPC is a request-response protocol:</p><p><em> <strong>Client program</strong> - Calls the client stub procedure.  The parameters are pushed onto the stack like a local procedure call.<br /></em> <strong>Client stub procedure</strong> - Marshals (packs) procedure id and arguments into a request message.<br /><em> <strong>Client communication module</strong> - OS sends the message from the client to the server.<br /></em> <strong>Server communication module</strong> - OS passes the incoming packets to the server stub procedure.<br /><em> <strong>Server stub procedure</strong> -  Unmarshalls the results, calls the server procedure matching the procedure id and passes the given arguments.<br /></em> The server response repeats the steps above in reverse order.</p><p>Sample RPC calls:</p><pre><code>GET /someoperation?data=anId</p><p>POST /anotheroperation<br />{<br />  &quot;data&quot;:&quot;anId&quot;;<br />  &quot;anotherdata&quot;: &quot;another value&quot;<br />}</code></pre><p>RPC is focused on exposing behaviors.  RPCs are often used for performance reasons with internal communications, as you can hand-craft native calls to better fit your use cases.</p><p>Choose a native library (aka SDK) when:</p><p><em> You know your target platform.<br /></em> You want to control how your "logic" is accessed.<br /><em> You want to control how error control happens off your library.<br /></em> Performance and end user experience is your primary concern.</p><p>HTTP APIs following <strong>REST</strong> tend to be used more often for public APIs.</p><p><h4>Disadvantage(s): RPC</h4></p><p><em> RPC clients become tightly coupled to the service implementation.<br /></em> A new API must be defined for every new operation or use case.<br /><em> It can be difficult to debug RPC.<br /></em> You might not be able to leverage existing technologies out of the box.  For example, it might require additional effort to ensure <a href="https://web.archive.org/web/20170608193645/http://etherealbits.com/2012/12/debunking-the-myths-of-rpc-rest/">RPC calls are properly cached</a> on caching servers such as <a href="http://www.squid-cache.org/">Squid</a>.</p><h3>Representational state transfer (REST)</h3><p>REST is an architectural style enforcing a client/server model where the client acts on a set of resources managed by the server.  The server provides a representation of resources and actions that can either manipulate or get a new representation of resources.  All communication must be stateless and cacheable.</p><p>There are four qualities of a RESTful interface:</p><p><em> <strong>Identify resources (URI in HTTP)</strong> - use the same URI regardless of any operation.<br /></em> <strong>Change with representations (Verbs in HTTP)</strong> - use verbs, headers, and body.<br /><em> <strong>Self-descriptive error message (status response in HTTP)</strong> - Use status codes, don't reinvent the wheel.<br /></em> <strong><a href="http://restcookbook.com/Basics/hateoas/">HATEOAS</a> (HTML interface for HTTP)</strong> - your web service should be fully accessible in a browser.</p><p>Sample REST calls:</p><pre><code>GET /someresources/anId</p><p>PUT /someresources/anId<br />{&quot;anotherdata&quot;: &quot;another value&quot;}</code></pre><p>REST is focused on exposing data.  It minimizes the coupling between client/server and is often used for public HTTP APIs.  REST uses a more generic and uniform method of exposing resources through URIs, <a href="https://github.com/for-GET/know-your-http-well/blob/master/headers.md">representation through headers</a>, and actions through verbs such as GET, POST, PUT, DELETE, and PATCH.  Being stateless, REST is great for horizontal scaling and partitioning.</p><p><h4>Disadvantage(s): REST</h4></p><p><em> With REST being focused on exposing data, it might not be a good fit if resources are not naturally organized or accessed in a simple hierarchy.  For example, returning all updated records from the past hour matching a particular set of events is not easily expressed as a path.  With REST, it is likely to be implemented with a combination of URI path, query parameters, and possibly the request body.<br /></em> REST typically relies on a few verbs (GET, POST, PUT, DELETE, and PATCH) which sometimes doesn't fit your use case.  For example, moving expired documents to the archive folder might not cleanly fit within these verbs.<br /><em> Fetching complicated resources with nested hierarchies requires multiple round trips between the client and server to render single views, e.g. fetching content of a blog entry and the comments on that entry. For mobile applications operating in variable network conditions, these multiple roundtrips are highly undesirable.<br /></em> Over time, more fields might be added to an API response and older clients will receive all new data fields, even those that they do not need, as a result, it bloats the payload size and leads to larger latencies.</p><h3>RPC and REST calls comparison</h3><p>| Operation | RPC | REST |<br />|---|---|---|<br />| Signup    | <strong>POST</strong> /signup | <strong>POST</strong> /persons |<br />| Resign    | <strong>POST</strong> /resign<br/>{<br/>"personid": "1234"<br/>} | <strong>DELETE</strong> /persons/1234 |<br />| Read a person | <strong>GET</strong> /readPerson?personid=1234 | <strong>GET</strong> /persons/1234 |<br />| Read a person’s items list | <strong>GET</strong> /readUsersItemsList?personid=1234 | <strong>GET</strong> /persons/1234/items |<br />| Add an item to a person’s items | <strong>POST</strong> /addItemToUsersItemsList<br/>{<br/>"personid": "1234";<br/>"itemid": "456"<br/>} | <strong>POST</strong> /persons/1234/items<br/>{<br/>"itemid": "456"<br/>} |<br />| Update an item    | <strong>POST</strong> /modifyItem<br/>{<br/>"itemid": "456";<br/>"key": "value"<br/>} | <strong>PUT</strong> /items/456<br/>{<br/>"key": "value"<br/>} |<br />| Delete an item | <strong>POST</strong> /removeItem<br/>{<br/>"itemid": "456"<br/>} | <strong>DELETE</strong> /items/456 |</p><p><p align="center"><br />  <i><a href=https://apihandyman.io/do-you-really-know-why-you-prefer-rest-over-rpc/>Source: Do you really know why you prefer REST over RPC</a></i><br /></p></p><p><h4>Source(s) and further reading: REST and RPC</h4></p><p><em> <a href="https://apihandyman.io/do-you-really-know-why-you-prefer-rest-over-rpc/">Do you really know why you prefer REST over RPC</a><br /></em> <a href="http://programmers.stackexchange.com/a/181186">When are RPC-ish approaches more appropriate than REST?</a><br /><em> <a href="http://stackoverflow.com/questions/15056878/rest-vs-json-rpc">REST vs JSON-RPC</a><br /></em> <a href="https://web.archive.org/web/20170608193645/http://etherealbits.com/2012/12/debunking-the-myths-of-rpc-rest/">Debunking the myths of RPC and REST</a><br /><em> <a href="https://www.quora.com/What-are-the-drawbacks-of-using-RESTful-APIs">What are the drawbacks of using REST</a><br /></em> <a href="http://www.puncsky.com/blog/2016-02-13-crack-the-system-design-interview">Crack the system design interview</a><br /><em> <a href="https://code.facebook.com/posts/1468950976659943/">Thrift</a><br /></em> <a href="http://arstechnica.com/civis/viewtopic.php?t=1190508">Why REST for internal use and not RPC</a>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

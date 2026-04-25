@@ -1,0 +1,9 @@
+Prism.js configuration:
+- Prism core CDN: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js
+- Components included (deferred):
+  - python: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js
+  - sql: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js
+  - javascript: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js
+  - bash: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js
+  - json: https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js
+- Lazy highlighting logic: docs/assets/js/prism-init.js uses IntersectionObserver and calls Prism.highlightElement(el) for visible, unprocessed code blocks (pre > code).

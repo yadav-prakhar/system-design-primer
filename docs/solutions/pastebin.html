@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Pastebin.com (or Bit.ly)</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/solutions.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+
+          <li class="nav-item">
+            <a href="dns.html">DNS</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="cdn.html">CDN</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="communication.html">Communication</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="solutions.html">Solutions</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+      <nav aria-label="Solutions" class="solutions-nav">
+        <h2 class="nav-heading">Solutions</h2>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="pastebin.html">Pastebin</a></li>
+          <li class="nav-item"><a href="twitter.html">Twitter</a></li>
+          <li class="nav-item"><a href="web_crawler.html">Web Crawler</a></li>
+          <li class="nav-item"><a href="mint.html">Mint.com</a></li>
+          <li class="nav-item"><a href="social_graph.html">Social Graph</a></li>
+          <li class="nav-item"><a href="query_cache.html">Query Cache</a></li>
+          <li class="nav-item"><a href="sales_rank.html">Sales Rank</a></li>
+          <li class="nav-item"><a href="scaling_aws.html">Scaling AWS</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <header class="solution-header">
+          <h1 class="solution-title">Design Pastebin.com (or Bit.ly)</h1>
+          <div class="solution-meta">
+            <div class="solution-meta-item">
+              <span class="solution-meta-label">Difficulty</span>
+              <span class="solution-meta-value"><span class="badge badge-difficulty" data-difficulty="Medium">Medium</span></span>
+            </div>
+            <div class="solution-meta-item">
+              <span class="solution-meta-label">Concepts</span>
+              <div class="solution-concepts">
+                <span class="concept-tag">Hash table</span>
+                <span class="concept-tag">MD5</span>
+                <span class="concept-tag">Base62</span>
+                <span class="concept-tag">Object store</span>
+                <span class="concept-tag">SQL</span>
+                <span class="concept-tag">REST API</span>
+                <span class="concept-tag">Cache</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="solution-section" id="step-1">
+          <h2>Step 1: Outline use cases and constraints</h2>
+          <p>Gather requirements and scope the problem. Ask questions to clarify use cases and constraints. Discuss assumptions.</p>
+
+          <h3>Use cases</h3>
+          <h4>We'll scope the problem to handle only the following use cases</h4>
+          <ul>
+            <li><strong>User</strong> enters a block of text and gets a randomly generated link
+              <ul>
+                <li>Expiration
+                  <ul>
+                    <li>Default setting does not expire</li>
+                    <li>Can optionally set a timed expiration</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><strong>User</strong> enters a paste's url and views the contents</li>
+            <li><strong>User</strong> is anonymous</li>
+            <li><strong>Service</strong> tracks analytics of pages
+              <ul>
+                <li>Monthly visit stats</li>
+              </ul>
+            </li>
+            <li><strong>Service</strong> deletes expired pastes</li>
+            <li><strong>Service</strong> has high availability</li>
+          </ul>
+
+          <h4>Out of scope</h4>
+          <ul>
+            <li><strong>User</strong> registers for an account
+              <ul>
+                <li><strong>User</strong> verifies email</li>
+              </ul>
+            </li>
+            <li><strong>User</strong> logs into a registered account
+              <ul>
+                <li><strong>User</strong> edits the document</li>
+              </ul>
+            </li>
+            <li><strong>User</strong> can set visibility</li>
+            <li><strong>User</strong> can set the shortlink</li>
+          </ul>
+
+          <h3>Constraints and assumptions</h3>
+          <h4>State assumptions</h4>
+          <ul>
+            <li>Traffic is not evenly distributed</li>
+            <li>Following a short link should be fast</li>
+            <li>Pastes are text only</li>
+            <li>Page view analytics do not need to be realtime</li>
+            <li>10 million users</li>
+            <li>10 million paste writes per month</li>
+            <li>100 million paste reads per month</li>
+            <li>10:1 read to write ratio</li>
+          </ul>
+
+          <h3>Calculate usage</h3>
+          <p><strong>Clarify with your interviewer if you should run back-of-the-envelope usage calculations.</strong></p>
+          <ul>
+            <li>Size per paste
+              <ul>
+                <li>1 KB content per paste</li>
+                <li><code>shortlink</code> - 7 bytes</li>
+                <li><code>expiration_length_in_minutes</code> - 4 bytes</li>
+                <li><code>created_at</code> - 5 bytes</li>
+                <li><code>paste_path</code> - 255 bytes</li>
+                <li>total = ~1.27 KB</li>
+              </ul>
+            </li>
+            <li>12.7 GB of new paste content per month
+              <ul>
+                <li>1.27 KB per paste * 10 million pastes per month</li>
+                <li>~450 GB of new paste content in 3 years</li>
+                <li>360 million shortlinks in 3 years</li>
+                <li>Assume most are new pastes instead of updates to existing ones</li>
+              </ul>
+            </li>
+            <li>4 paste writes per second on average</li>
+            <li>40 read requests per second on average</li>
+          </ul>
+        </section>
+
+        <section class="solution-section" id="step-2">
+          <h2>Step 2: Create a high level design</h2>
+          <p>Outline a high level design with all important components.</p>
+          <div class="solution-diagram">
+            <img src="./assets/images/BKsBnmG.png" alt="Pastebin high level architecture" class="lightbox" loading="lazy" />
+          </div>
+        </section>
+
+        <section class="solution-section" id="step-3">
+          <h2>Step 3: Design core components</h2>
+          <p>Dive into details for each core component.</p>
+
+          <h3>Use case: User enters a block of text and gets a randomly generated link</h3>
+          <p>We could use a relational database as a large hash table, mapping the generated url to a file server and path containing the paste file.</p>
+          <p>Instead of managing a file server, we could use a managed <strong>Object Store</strong> such as Amazon S3 or a NoSQL document store.</p>
+          <p>An alternative to a relational database acting as a large hash table, we could use a NoSQL key-value store. We should discuss the tradeoffs between choosing SQL or NoSQL. The following discussion uses the relational database approach.</p>
+          <ul>
+            <li>The <strong>Client</strong> sends a create paste request to the <strong>Web Server</strong>, running as a reverse proxy</li>
+            <li>The <strong>Web Server</strong> forwards the request to the <strong>Write API</strong> server</li>
+            <li>The <strong>Write API</strong> server does the following:
+              <ul>
+                <li>Generates a unique url
+                  <ul>
+                    <li>Checks if the url is unique by looking at the <strong>SQL Database</strong> for a duplicate</li>
+                    <li>If the url is not unique, it generates another url</li>
+                    <li>If we supported a custom url, we could use the user-supplied (also check for a duplicate)</li>
+                  </ul>
+                </li>
+                <li>Saves to the <strong>SQL Database</strong> <code>pastes</code> table</li>
+                <li>Saves the paste data to the <strong>Object Store</strong></li>
+                <li>Returns the url</li>
+              </ul>
+            </li>
+          </ul>
+
+          <p>The <code>pastes</code> table could have the following structure:</p>
+          <pre><code>shortlink char(7) NOT NULL
+expiration_length_in_minutes int NOT NULL
+created_at datetime NOT NULL
+paste_path varchar(255) NOT NULL
+PRIMARY KEY(shortlink)</code></pre>
+
+          <p>To generate the unique url, we could:</p>
+          <ul>
+            <li>Take the <strong>MD5</strong> hash of the user's ip_address + timestamp
+              <ul>
+                <li>MD5 is a widely used hashing function that produces a 128-bit hash value</li>
+                <li>MD5 is uniformly distributed</li>
+                <li>Alternatively, we could also take the MD5 hash of randomly-generated data</li>
+              </ul>
+            </li>
+            <li><strong>Base 62</strong> encode the MD5 hash
+              <ul>
+                <li>Base 62 encodes to <code>[a-zA-Z0-9]</code> which works well for urls, eliminating the need for escaping special characters</li>
+                <li>There is only one hash result for the original input and Base 62 is deterministic (no randomness involved)</li>
+                <li>Base 64 is another popular encoding but provides issues for urls because of the additional <code>+</code> and <code>/</code> characters</li>
+              </ul>
+            </li>
+            <li>Take the first 7 characters of the output, which results in 62^7 possible values</li>
+          </ul>
+
+          <h3>Use case: User enters a paste's url and views the contents</h3>
+          <ul>
+            <li>The <strong>Client</strong> sends a get paste request to the <strong>Web Server</strong></li>
+            <li>The <strong>Web Server</strong> forwards the request to the <strong>Read API</strong> server</li>
+            <li>The <strong>Read API</strong> server does the following:
+              <ul>
+                <li>Checks the <strong>SQL Database</strong> for the generated url
+                  <ul>
+                    <li>If the url is in the <strong>SQL Database</strong>, fetch the paste contents from the <strong>Object Store</strong></li>
+                    <li>Else, return an error message for the user</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Use case: Service tracks analytics of pages</h3>
+          <p>Since realtime analytics are not a requirement, we could simply <strong>MapReduce</strong> the <strong>Web Server</strong> logs to generate hit counts.</p>
+
+          <h3>Use case: Service deletes expired pastes</h3>
+          <p>To delete expired pastes, we could just scan the <strong>SQL Database</strong> for all entries whose expiration timestamp are older than the current timestamp. All expired entries would then be deleted (or marked as expired) from the table.</p>
+        </section>
+
+        <section class="solution-section" id="step-4">
+          <h2>Step 4: Scale the design</h2>
+          <p>Identify and address bottlenecks, given the constraints.</p>
+          <div class="solution-diagram">
+            <img src="./assets/images/4edXG0T.png" alt="Pastebin scaled architecture" class="lightbox" loading="lazy" />
+          </div>
+
+          <p><strong>Important: Do not simply jump right into the final design from the initial design!</strong></p>
+          <p>State you would do this iteratively: 1) <strong>Benchmark/Load Test</strong>, 2) <strong>Profile</strong> for bottlenecks 3) address bottlenecks while evaluating alternatives and trade-offs, and 4) repeat.</p>
+
+          <p>Refer to the linked content for main talking points, tradeoffs, and alternatives:</p>
+          <ul>
+            <li>DNS</li>
+            <li>CDN</li>
+            <li>Load balancer</li>
+            <li>Horizontal scaling</li>
+            <li>Web server (reverse proxy)</li>
+            <li>API server (application layer)</li>
+            <li>Cache</li>
+            <li>Relational database management system (RDBMS)</li>
+            <li>SQL write master-slave failover</li>
+            <li>Master-slave replication</li>
+            <li>Consistency patterns</li>
+            <li>Availability patterns</li>
+          </ul>
+        </section>
+
+        <section class="solution-section" id="additional">
+          <h2>Additional talking points</h2>
+          <p>Additional topics to dive into, depending on the problem scope and time remaining.</p>
+
+          <h3>NoSQL</h3>
+          <ul>
+            <li>Key-value store</li>
+            <li>Document store</li>
+            <li>Wide column store</li>
+            <li>Graph database</li>
+            <li>SQL vs NoSQL</li>
+          </ul>
+
+          <h3>Caching</h3>
+          <ul>
+            <li>Where to cache: Client caching, CDN caching, Web server caching, Database caching, Application caching</li>
+            <li>What to cache: Caching at the database query level, Caching at the object level</li>
+            <li>When to update the cache: Cache-aside, Write-through, Write-behind (write-back), Refresh ahead</li>
+          </ul>
+
+          <h3>Asynchronism and microservices</h3>
+          <ul>
+            <li>Message queues</li>
+            <li>Task queues</li>
+            <li>Back pressure</li>
+            <li>Microservices</li>
+          </ul>
+
+          <h3>Communications</h3>
+          <ul>
+            <li>External communication with clients - HTTP APIs following REST</li>
+            <li>Internal communications - RPC</li>
+            <li>Service discovery</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

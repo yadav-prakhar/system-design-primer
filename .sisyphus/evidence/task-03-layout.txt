@@ -1,0 +1,14 @@
+48:  grid-template-columns: var(--layout-sidebar-w) 1fr;
+49:  grid-template-rows: var(--layout-header-h) 1fr var(--layout-footer-h);
+50:  grid-template-areas:
+60:  grid-template-columns: auto 1fr auto;
+77:  grid-template-columns: 1fr auto;
+12:  <a class="skip-link" href="#main">Skip to content</a>
+Layout grid checks:
+
+grid-template-columns: var(--layout-sidebar-w) 1fr;
+grid-template-rows: var(--layout-header-h) 1fr var(--layout-footer-h);
+grid-template-areas: "header header" "sidebar main" "footer footer";
+
+Skip-link check:
+Found in docs/index.html: <a class="skip-link" href="#main">Skip to content</a>

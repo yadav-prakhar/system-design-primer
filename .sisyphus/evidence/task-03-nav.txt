@@ -1,0 +1,2 @@
+9 # nav-ish occurrences in layout.css
+6 # topic-ish occurrences in index.html

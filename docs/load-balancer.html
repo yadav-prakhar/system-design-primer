@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Load Balancer</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          
+          <li class="nav-item">
+            <a href="dns.html">DNS</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cdn.html">CDN</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="communication.html">Communication</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="solutions.html">Solutions</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <section id="load-balancer">
+        <h2>Load balancer</h2>
+        <p align="center"><br />  <img src="./assets/images/h81n9iK.png" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html>Source: Scalable system design patterns</a></i><br /></p></p><p>Load balancers distribute incoming client requests to computing resources such as application servers and databases.  In each case, the load balancer returns the response from the computing resource to the appropriate client.  Load balancers are effective at:</p><p><em> Preventing requests from going to unhealthy servers<br /></em> Preventing overloading resources<br /><em> Helping to eliminate a single point of failure</p><p>Load balancers can be implemented with hardware (expensive) or with software such as HAProxy.</p><p>Additional benefits include:</p><p></em> <strong>SSL termination</strong> - Decrypt incoming requests and encrypt server responses so backend servers do not have to perform these potentially expensive operations<br />    <em> Removes the need to install <a href="https://en.wikipedia.org/wiki/X.509">X.509 certificates</a> on each server<br /></em> <strong>Session persistence</strong> - Issue cookies and route a specific client's requests to same instance if the web apps do not keep track of sessions</p><p>To protect against failures, it's common to set up multiple load balancers, either in <a href="#active-passive">active-passive</a> or <a href="#active-active">active-active</a> mode.</p><p>Load balancers can route traffic based on various metrics, including:</p><p><em> Random<br /></em> Least loaded<br /><em> Session/cookies<br /></em> <a href="https://www.g33kinfo.com/info/round-robin-vs-weighted-round-robin-lb">Round robin or weighted round robin</a><br /><em> <a href="#layer-4-load-balancing">Layer 4</a><br /></em> <a href="#layer-7-load-balancing">Layer 7</a></p><h3>Layer 4 load balancing</h3><p>Layer 4 load balancers look at info at the <a href="#communication">transport layer</a> to decide how to distribute requests.  Generally, this involves the source, destination IP addresses, and ports in the header, but not the contents of the packet.  Layer 4 load balancers forward network packets to and from the upstream server, performing <a href="https://web.archive.org/web/20240117134735/https://www.nginx.com/resources/glossary/layer-4-load-balancing/">Network Address Translation (NAT)</a>.</p><h3>Layer 7 load balancing</h3><p>Layer 7 load balancers look at the <a href="#communication">application layer</a> to decide how to distribute requests.  This can involve contents of the header, message, and cookies.  Layer 7 load balancers terminate network traffic, reads the message, makes a load-balancing decision, then opens a connection to the selected server.  For example, a layer 7 load balancer can direct video traffic to servers that host videos while directing more sensitive user billing traffic to security-hardened servers.</p><p>At the cost of flexibility, layer 4 load balancing requires less time and computing resources than Layer 7, although the performance impact can be minimal on modern commodity hardware.</p><h3>Horizontal scaling</h3><p>Load balancers can also help with horizontal scaling, improving performance and availability.  Scaling out using commodity machines is more cost efficient and results in higher availability than scaling up a single server on more expensive hardware, called <strong>Vertical Scaling</strong>.  It is also easier to hire for talent working on commodity hardware than it is for specialized enterprise systems.</p><p><h4>Disadvantage(s): horizontal scaling</h4></p><p><em> Scaling horizontally introduces complexity and involves cloning servers<br />    </em> Servers should be stateless: they should not contain any user-related data like sessions or profile pictures<br />    <em> Sessions can be stored in a centralized data store such as a <a href="#database">database</a> (SQL, NoSQL) or a persistent <a href="#cache">cache</a> (Redis, Memcached)<br /></em> Downstream servers such as caches and databases need to handle more simultaneous connections as upstream servers scale out</p><h3>Disadvantage(s): load balancer</h3><p><em> The load balancer can become a performance bottleneck if it does not have enough resources or if it is not configured properly.<br /></em> Introducing a load balancer to help eliminate a single point of failure results in increased complexity.<br /><em> A single load balancer is a single point of failure, configuring multiple load balancers further increases complexity.</p><h3>Source(s) and further reading</h3><p></em> <a href="https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/">NGINX architecture</a><br /><em> <a href="http://www.haproxy.org/download/1.2/doc/architecture.txt">HAProxy architecture guide</a><br /></em> <a href="https://web.archive.org/web/20220530193911/https://www.lecloud.net/post/7295452622/scalability-for-dummies-part-1-clones">Scalability</a><br /><em> <a href="https://en.wikipedia.org/wiki/Load_balancing_(computing">Wikipedia</a>)<br /></em> <a href="https://www.nginx.com/resources/glossary/layer-4-load-balancing/">Layer 4 load balancing</a><br /><em> <a href="https://www.nginx.com/resources/glossary/layer-7-load-balancing/">Layer 7 load balancing</a><br /></em> <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html">ELB listener config</a>
+      </section>
+<section id="reverse-proxy-web-server-">
+        <h2>Reverse proxy (web server)</h2>
+        <p align="center"><br />  <img src="./assets/images/n41Azff.png" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=https://upload.wikimedia.org/wikipedia/commons/6/67/Reverse_proxy_h2g2bob.svg>Source: Wikipedia</a></i><br />  <br/><br /></p></p><p>A reverse proxy is a web server that centralizes internal services and provides unified interfaces to the public.  Requests from clients are forwarded to a server that can fulfill it before the reverse proxy returns the server's response to the client.</p><p>Additional benefits include:</p><p><em> <strong>Increased security</strong> - Hide information about backend servers, blacklist IPs, limit number of connections per client<br /></em> <strong>Increased scalability and flexibility</strong> - Clients only see the reverse proxy's IP, allowing you to scale servers or change their configuration<br /><em> <strong>SSL termination</strong> - Decrypt incoming requests and encrypt server responses so backend servers do not have to perform these potentially expensive operations<br />    </em> Removes the need to install <a href="https://en.wikipedia.org/wiki/X.509">X.509 certificates</a> on each server<br /><em> <strong>Compression</strong> - Compress server responses<br /></em> <strong>Caching</strong> - Return the response for cached requests<br /><em> <strong>Static content</strong> - Serve static content directly<br />    </em> HTML/CSS/JS<br />    <em> Photos<br />    </em> Videos<br />    <em> Etc</p><h3>Load balancer vs reverse proxy</h3><p></em> Deploying a load balancer is useful when you have multiple servers.  Often, load balancers  route traffic to a set of servers serving the same function.<br /><em> Reverse proxies can be useful even with just one web server or application server, opening up the benefits described in the previous section.<br /></em> Solutions such as NGINX and HAProxy can support both layer 7 reverse proxying and load balancing.</p><h3>Disadvantage(s): reverse proxy</h3><p><em> Introducing a reverse proxy results in increased complexity.<br /></em> A single reverse proxy is a single point of failure, configuring multiple reverse proxies (ie a <a href="https://en.wikipedia.org/wiki/Failover">failover</a>) further increases complexity.</p><h3>Source(s) and further reading</h3><p><em> <a href="https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/">Reverse proxy vs load balancer</a><br /></em> <a href="https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/">NGINX architecture</a><br /><em> <a href="http://www.haproxy.org/download/1.2/doc/architecture.txt">HAProxy architecture guide</a><br /></em> <a href="https://en.wikipedia.org/wiki/Reverse_proxy">Wikipedia</a>
+      </section>
+<section id="application-layer">
+        <h2>Application layer</h2>
+        <p align="center"><br />  <img src="./assets/images/yB5SYwm.png" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://lethain.com/introduction-to-architecting-systems-for-scale/#platform_layer>Source: Intro to architecting systems for scale</a></i><br /></p></p><p>Separating out the web layer from the application layer (also known as platform layer) allows you to scale and configure both layers independently.  Adding a new API results in adding application servers without necessarily adding additional web servers.  The <strong>single responsibility principle</strong> advocates for small and autonomous services that work together.  Small teams with small services can plan more aggressively for rapid growth.</p><p>Workers in the application layer also help enable <a href="#asynchronism">asynchronism</a>.</p><h3>Microservices</h3><p>Related to this discussion are <a href="https://en.wikipedia.org/wiki/Microservices">microservices</a>, which can be described as a suite of independently deployable, small, modular services.  Each service runs a unique process and communicates through a well-defined, lightweight mechanism to serve a business goal. <sup><a href=https://smartbear.com/learn/api-design/what-are-microservices>1</a></sup></p><p>Pinterest, for example, could have the following microservices: user profile, follower, feed, search, photo upload, etc.</p><h3>Service Discovery</h3><p>Systems such as <a href="https://www.consul.io/docs/index.html">Consul</a>, <a href="https://coreos.com/etcd/docs/latest">Etcd</a>, and <a href="http://www.slideshare.net/sauravhaloi/introduction-to-apache-zookeeper">Zookeeper</a> can help services find each other by keeping track of registered names, addresses, and ports.  <a href="https://www.consul.io/intro/getting-started/checks.html">Health checks</a> help verify service integrity and are often done using an <a href="#hypertext-transfer-protocol-http">HTTP</a> endpoint.  Both Consul and Etcd have a built in <a href="#key-value-store">key-value store</a> that can be useful for storing config values and other shared data.</p><h3>Disadvantage(s): application layer</h3><p><em> Adding an application layer with loosely coupled services requires a different approach from an architectural, operations, and process viewpoint (vs a monolithic system).<br /></em> Microservices can add complexity in terms of deployments and operations.</p><h3>Source(s) and further reading</h3><p><em> <a href="http://lethain.com/introduction-to-architecting-systems-for-scale">Intro to architecting systems for scale</a><br /></em> <a href="http://www.puncsky.com/blog/2016-02-13-crack-the-system-design-interview">Crack the system design interview</a><br /><em> <a href="https://en.wikipedia.org/wiki/Service-oriented_architecture">Service oriented architecture</a><br /></em> <a href="http://www.slideshare.net/sauravhaloi/introduction-to-apache-zookeeper">Introduction to Zookeeper</a><br />* <a href="https://cloudncode.wordpress.com/2016/07/22/msa-getting-started/">Here's what you need to know about building microservices</a>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

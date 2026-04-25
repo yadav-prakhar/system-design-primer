@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>System Design Solutions</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+  <link rel="stylesheet" href="./assets/css/solutions.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          
+          <li class="nav-item">
+            <a href="dns.html">DNS</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cdn.html">CDN</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="communication.html">Communication</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a href="solutions.html">Solutions</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+      <nav aria-label="Solutions" class="solutions-nav">
+        <h2 class="nav-heading">Solutions</h2>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="solutions/pastebin.html">Pastebin</a></li>
+          <li class="nav-item"><a href="solutions/twitter.html">Twitter</a></li>
+          <li class="nav-item"><a href="solutions/web_crawler.html">Web Crawler</a></li>
+          <li class="nav-item"><a href="solutions/mint.html">Mint.com</a></li>
+          <li class="nav-item"><a href="solutions/social_graph.html">Social Graph</a></li>
+          <li class="nav-item"><a href="solutions/query_cache.html">Query Cache</a></li>
+          <li class="nav-item"><a href="solutions/sales_rank.html">Sales Rank</a></li>
+          <li class="nav-item"><a href="solutions/scaling_aws.html">Scaling AWS</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <h1>System Design Solutions</h1>
+        <p class="lead">Common system design interview questions with sample discussions, code, and diagrams.</p>
+
+        <section id="system-design-solutions">
+          <h2>System Design Interview Questions</h2>
+          <div class="solutions-grid">
+
+            <article class="solution-card" data-difficulty="Medium" data-concepts="Hash table, MD5, Base62, Object store, SQL, REST API, Cache">
+              <div class="card-header">
+                <h3 class="card-title">Design Pastebin.com (or Bit.ly)</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Medium">Medium</span>
+                </div>
+              </div>
+              <p class="card-description">Design a URL shortening service like Pastebin or Bit.ly.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">Hash table</span>
+                <span class="concept-tag">SQL</span>
+                <span class="concept-tag">Cache</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/4edXG0T.png" alt="Pastebin architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/pastebin.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Hard" data-concepts="Fan-out, Timeline, Search, CQRS, Message queues">
+              <div class="card-header">
+                <h3 class="card-title">Design Twitter Timeline and Search</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Hard">Hard</span>
+                </div>
+              </div>
+              <p class="card-description">Design Twitter's timeline and search functionality.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">Fan-out</span>
+                <span class="concept-tag">Timeline</span>
+                <span class="concept-tag">Search</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/jrUBAF7.png" alt="Twitter architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/twitter.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Medium" data-concepts="BFS, MapReduce, URL frontier, Thread pool">
+              <div class="card-header">
+                <h3 class="card-title">Design a Web Crawler</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Medium">Medium</span>
+                </div>
+              </div>
+              <p class="card-description">Design a web crawler that efficiently crawls web pages.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">BFS</span>
+                <span class="concept-tag">MapReduce</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/bWxPtQA.png" alt="Web crawler architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/web_crawler.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Medium" data-concepts="SQL, ETL, Data warehousing, ACID">
+              <div class="card-header">
+                <h3 class="card-title">Design Mint.com</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Medium">Medium</span>
+                </div>
+              </div>
+              <p class="card-description">Design a personal finance management application.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">SQL</span>
+                <span class="concept-tag">ETL</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/V5q57vU.png" alt="Mint architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/mint.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Medium" data-concepts="Graph DB, BFS, Adjacency list, Neo4j">
+              <div class="card-header">
+                <h3 class="card-title">Design Social Network Data Structures</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Medium">Medium</span>
+                </div>
+              </div>
+              <p class="card-description">Design the data structures for a social network.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">Graph DB</span>
+                <span class="concept-tag">BFS</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/cdCv5g7.png" alt="Social graph architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/social_graph.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Medium" data-concepts="Key-value store, NoSQL, Consistent hashing, Memcached">
+              <div class="card-header">
+                <h3 class="card-title">Design a Key-Value Store for Search</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Medium">Medium</span>
+                </div>
+              </div>
+              <p class="card-description">Design a key-value store for a search engine.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">Key-value</span>
+                <span class="concept-tag">NoSQL</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/4j99mhe.png" alt="Query cache architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/query_cache.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Easy" data-concepts="Ranking, SQL, Sharding, Caching">
+              <div class="card-header">
+                <h3 class="card-title">Design Amazon Sales Ranking</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Easy">Easy</span>
+                </div>
+              </div>
+              <p class="card-description">Design Amazon's sales ranking by category feature.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">Ranking</span>
+                <span class="concept-tag">SQL</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/MzExP06.png" alt="Sales rank architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/sales_rank.html" class="card-link">View Solution</a>
+            </article>
+
+            <article class="solution-card" data-difficulty="Hard" data-concepts="AWS, Horizontal scaling, Load balancing, Microservices">
+              <div class="card-header">
+                <h3 class="card-title">Scale to Millions on AWS</h3>
+                <div class="card-meta">
+                  <span class="badge badge-difficulty" data-difficulty="Hard">Hard</span>
+                </div>
+              </div>
+              <p class="card-description">Design a system that scales to millions of users on AWS.</p>
+              <div class="card-concepts">
+                <span class="concept-tag">AWS</span>
+                <span class="concept-tag">Scaling</span>
+              </div>
+              <div class="card-image">
+                <img src="./assets/images/jj3A5N8.png" alt="Scaling AWS architecture" class="lightbox" loading="lazy" />
+              </div>
+              <a href="solutions/scaling_aws.html" class="card-link">View Solution</a>
+            </article>
+
+          </div>
+        </section>
+
+        <section id="object-oriented-design">
+          <h2>Object-Oriented Design Interview Questions</h2>
+          <p><strong>Note: This section is under development</strong></p>
+          <div class="solutions-grid">
+            <article class="solution-card oo-design-card">
+              <div class="card-header">
+                <h3 class="card-title">Design a Hash Map</h3>
+                <span class="badge badge-oo">OO Design</span>
+              </div>
+              <p class="card-description">Design a hash map with collision handling.</p>
+              <a href="solutions/object_oriented_design/hash_table/hash_map.ipynb" class="card-link">View Solution</a>
+            </article>
+            <article class="solution-card oo-design-card">
+              <div class="card-header">
+                <h3 class="card-title">Design a LRU Cache</h3>
+                <span class="badge badge-oo">OO Design</span>
+              </div>
+              <p class="card-description">Design a least recently used cache.</p>
+              <a href="solutions/object_oriented_design/lru_cache/lru_cache.ipynb" class="card-link">View Solution</a>
+            </article>
+            <article class="solution-card oo-design-card">
+              <div class="card-header">
+                <h3 class="card-title">Design a Call Center</h3>
+                <span class="badge badge-oo">OO Design</span>
+              </div>
+              <p class="card-description">Design a call center with employees and calls.</p>
+              <a href="solutions/object_oriented_design/call_center/call_center.ipynb" class="card-link">View Solution</a>
+            </article>
+          </div>
+        </section>
+      </article>
+    </main>
+        <h2>System design interview questions with solutions</h2>
+        <p>> Common system design interview questions with sample discussions, code, and diagrams.<br />><br />> Solutions linked to content in the <code>solutions/</code> folder.</p><p>| Question | |<br />|---|---|<br />| Design Pastebin.com (or Bit.ly) | <a href="solutions/system_design/pastebin/README.md">Solution</a> |<br />| Design the Twitter timeline and search (or Facebook feed and search) | <a href="solutions/system_design/twitter/README.md">Solution</a> |<br />| Design a web crawler | <a href="solutions/system_design/web_crawler/README.md">Solution</a> |<br />| Design Mint.com | <a href="solutions/system_design/mint/README.md">Solution</a> |<br />| Design the data structures for a social network | <a href="solutions/system_design/social_graph/README.md">Solution</a> |<br />| Design a key-value store for a search engine | <a href="solutions/system_design/query_cache/README.md">Solution</a> |<br />| Design Amazon's sales ranking by category feature | <a href="solutions/system_design/sales_rank/README.md">Solution</a> |<br />| Design a system that scales to millions of users on AWS | <a href="solutions/system_design/scaling_aws/README.md">Solution</a> |<br />| Add a system design question | <a href="#contributing">Contribute</a> |</p><h3>Design Pastebin.com (or Bit.ly)</h3><p><a href="solutions/system_design/pastebin/README.md">View exercise and solution</a></p><p><img src="./assets/images/4edXG0T.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design the Twitter timeline and search (or Facebook feed and search)</h3><p><a href="solutions/system_design/twitter/README.md">View exercise and solution</a></p><p><img src="./assets/images/jrUBAF7.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design a web crawler</h3><p><a href="solutions/system_design/web_crawler/README.md">View exercise and solution</a></p><p><img src="./assets/images/bWxPtQA.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design Mint.com</h3><p><a href="solutions/system_design/mint/README.md">View exercise and solution</a></p><p><img src="./assets/images/V5q57vU.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design the data structures for a social network</h3><p><a href="solutions/system_design/social_graph/README.md">View exercise and solution</a></p><p><img src="./assets/images/cdCv5g7.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design a key-value store for a search engine</h3><p><a href="solutions/system_design/query_cache/README.md">View exercise and solution</a></p><p><img src="./assets/images/4j99mhe.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design Amazon's sales ranking by category feature</h3><p><a href="solutions/system_design/sales_rank/README.md">View exercise and solution</a></p><p><img src="./assets/images/MzExP06.png" alt="Imgur" class="diagram" loading="lazy" /></p><h3>Design a system that scales to millions of users on AWS</h3><p><a href="solutions/system_design/scaling_aws/README.md">View exercise and solution</a></p><p><img src="./assets/images/jj3A5N8.png" alt="Imgur" class="diagram" loading="lazy" /></p>
+      </section>
+<section id="object-oriented-design-interview-questions-with-solutions">
+        <h2>Object-oriented design interview questions with solutions</h2>
+        <p>> Common object-oriented design interview questions with sample discussions, code, and diagrams.<br />><br />> Solutions linked to content in the <code>solutions/</code> folder.</p><p>><strong>Note: This section is under development</strong></p><p>| Question | |<br />|---|---|<br />| Design a hash map | <a href="solutions/object_oriented_design/hash_table/hash_map.ipynb">Solution</a>  |<br />| Design a least recently used cache | <a href="solutions/object_oriented_design/lru_cache/lru_cache.ipynb">Solution</a>  |<br />| Design a call center | <a href="solutions/object_oriented_design/call_center/call_center.ipynb">Solution</a>  |<br />| Design a deck of cards | <a href="solutions/object_oriented_design/deck_of_cards/deck_of_cards.ipynb">Solution</a>  |<br />| Design a parking lot | <a href="solutions/object_oriented_design/parking_lot/parking_lot.ipynb">Solution</a>  |<br />| Design a chat server | <a href="solutions/object_oriented_design/online_chat/online_chat.ipynb">Solution</a>  |<br />| Design a circular array | <a href="#contributing">Contribute</a>  |<br />| Add an object-oriented design question | <a href="#contributing">Contribute</a> |</p>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

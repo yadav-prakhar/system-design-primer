@@ -1,0 +1,99 @@
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1001;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 2px solid var(--color-stroke, #fff);
+  color: var(--color-text, #fff);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.lightbox-close:hover {
+  background: var(--color-surface, rgba(255,255,255,0.1));
+}
+
+.lightbox-close:focus {
+  outline: var(--focus-ring, 2px solid #fff);
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border: 2px solid var(--color-stroke, #fff);
+  background: var(--color-bg, #000);
+}
+
+.lightbox-caption {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: var(--color-surface, rgba(255,255,255,0.1));
+  color: var(--color-text, #fff);
+  font-size: var(--font-size-2, 14px);
+  max-width: 100%;
+  text-align: center;
+}
+
+.lightbox-loader {
+  color: var(--color-text, #fff);
+  font-size: var(--font-size-3, 16px);
+  padding: 20px;
+}
+
+/* Ensure diagram images have pointer cursor */
+img.diagram {
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+img.diagram:hover {
+  opacity: 0.9;
+}

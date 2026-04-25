@@ -1,0 +1,11 @@
+Required asset references per docs/*.html:
+variables.css refs:
+12
+layout.css refs:
+12
+search.js refs:
+12
+-- Additional linkage checks --
+Any CSS/JS links missing in pages (count of html containing both href and src links):
+0
+0

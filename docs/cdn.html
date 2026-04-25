@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Content Delivery Network (CDN)</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          
+          <li class="nav-item">
+            <a href="dns.html">DNS</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a href="cdn.html">CDN</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="communication.html">Communication</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="solutions.html">Solutions</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <section id="content-delivery-network">
+        <h2>Content delivery network</h2>
+        <p align="center"><br />  <img src="./assets/images/h9TAuGI.jpg" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/>Source: Why use a CDN</a></i><br /></p></p><p>A content delivery network (CDN) is a globally distributed network of proxy servers, serving content from locations closer to the user.  Generally, static files such as HTML/CSS/JS, photos, and videos are served from CDN, although some CDNs such as Amazon's CloudFront support dynamic content.  The site's DNS resolution will tell clients which server to contact.</p><p>Serving content from CDNs can significantly improve performance in two ways:</p><p><em> Users receive content from data centers close to them<br /></em> Your servers do not have to serve requests that the CDN fulfills</p><h3>Push CDNs</h3><p>Push CDNs receive new content whenever changes occur on your server.  You take full responsibility for providing content, uploading directly to the CDN and rewriting URLs to point to the CDN.  You can configure when content expires and when it is updated.  Content is uploaded only when it is new or changed, minimizing traffic, but maximizing storage.</p><p>Sites with a small amount of traffic or sites with content that isn't often updated work well with push CDNs.  Content is placed on the CDNs once, instead of being re-pulled at regular intervals.</p><h3>Pull CDNs</h3><p>Pull CDNs grab new content from your server when the first user requests the content.  You leave the content on your server and rewrite URLs to point to the CDN.  This results in a slower request until the content is cached on the CDN.</p><p>A <a href="https://en.wikipedia.org/wiki/Time_to_live">time-to-live (TTL)</a> determines how long content is cached.  Pull CDNs minimize storage space on the CDN, but can create redundant traffic if files expire and are pulled before they have actually changed.</p><p>Sites with heavy traffic work well with pull CDNs, as traffic is spread out more evenly with only recently-requested content remaining on the CDN.</p><h3>Disadvantage(s): CDN</h3><p><em> CDN costs could be significant depending on traffic, although this should be weighed with additional costs you would incur not using a CDN.<br /></em> Content might be stale if it is updated before the TTL expires it.<br /><em> CDNs require changing URLs for static content to point to the CDN.</p><h3>Source(s) and further reading</h3><p></em> <a href="https://figshare.com/articles/Globally_distributed_content_delivery/6605972">Globally distributed content delivery</a><br /><em> <a href="https://www.geeksforgeeks.org/system-design/pull-cdn-vs-push-cdn/">The differences between push and pull CDNs</a><br /></em> <a href="https://en.wikipedia.org/wiki/Content_delivery_network">Wikipedia</a>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

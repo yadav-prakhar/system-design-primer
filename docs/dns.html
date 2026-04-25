@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Domain Name System (DNS)</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          
+          <li class="nav-item active">
+            <a href="dns.html">DNS</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cdn.html">CDN</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="load-balancer.html">Load Balancer</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="database.html">Database</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="cache.html">Cache</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="asynchronism.html">Asynchronism</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="communication.html">Communication</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="security.html">Security</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="appendix.html">Appendix</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="solutions.html">Solutions</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="resources.html">Resources</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <section id="domain-name-system">
+        <h2>Domain name system</h2>
+        <p align="center"><br />  <img src="./assets/images/IOyLj4i.jpg" class="diagram" loading="lazy" /><br />  <br/><br />  <i><a href=http://www.slideshare.net/srikrupa5/dns-security-presentation-issa>Source: DNS security presentation</a></i><br /></p></p><p>A Domain Name System (DNS) translates a domain name such as www.example.com to an IP address.</p><p>DNS is hierarchical, with a few authoritative servers at the top level.  Your router or ISP provides information about which DNS server(s) to contact when doing a lookup.  Lower level DNS servers cache mappings, which could become stale due to DNS propagation delays.  DNS results can also be cached by your browser or OS for a certain period of time, determined by the <a href="https://en.wikipedia.org/wiki/Time_to_live">time to live (TTL)</a>.</p><p><em> <strong>NS record (name server)</strong> - Specifies the DNS servers for your domain/subdomain.<br /></em> <strong>MX record (mail exchange)</strong> - Specifies the mail servers for accepting messages.<br /><em> <strong>A record (address)</strong> - Points a name to an IP address.<br /></em> <strong>CNAME (canonical)</strong> - Points a name to another name or <code>CNAME</code> (example.com to www.example.com) or to an <code>A</code> record.</p><p>Services such as <a href="https://www.cloudflare.com/dns/">CloudFlare</a> and <a href="https://aws.amazon.com/route53/">Route 53</a> provide managed DNS services.  Some DNS services can route traffic through various methods:</p><p><em> <a href="https://www.jscape.com/blog/load-balancing-algorithms">Weighted round robin</a><br />    </em> Prevent traffic from going to servers under maintenance<br />    <em> Balance between varying cluster sizes<br />    </em> A/B testing<br /><em> <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-latency.html">Latency-based</a><br /></em> <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-geo.html">Geolocation-based</a></p><h3>Disadvantage(s): DNS</h3><p><em> Accessing a DNS server introduces a slight delay, although mitigated by caching described above.<br /></em> DNS server management could be complex and is generally managed by <a href="http://superuser.com/questions/472695/who-controls-the-dns-servers/472729">governments, ISPs, and large companies</a>.<br /><em> DNS services have recently come under <a href="http://dyn.com/blog/dyn-analysis-summary-of-friday-october-21-attack/">DDoS attack</a>, preventing users from accessing websites such as Twitter without knowing Twitter's IP address(es).</p><h3>Source(s) and further reading</h3><p></em> <a href="https://technet.microsoft.com/en-us/library/dd197427(v=ws.10">DNS architecture</a>.aspx)<br /><em> <a href="https://en.wikipedia.org/wiki/Domain_Name_System">Wikipedia</a><br /></em> <a href="https://support.dnsimple.com/categories/dns/">DNS articles</a>
+      </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

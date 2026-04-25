@@ -1,0 +1,36 @@
+=== TASK 06 CONTENT VERIFICATION ===
+
+Topic pages with content from README:
+
+=== Topic Page Content Stats ===
+  6090 docs/dns.html
+  6049 docs/cdn.html
+ 14674 docs/load-balancer.html
+ 26243 docs/database.html
+ 13242 docs/cache.html
+  6784 docs/asynchronism.html
+ 17483 docs/communication.html
+  4284 docs/security.html
+ 26681 docs/appendix.html
+121530 total
+
+=== Content Verification (key phrases from README) ===
+1. DNS page - 'Domain Name System':
+1
+2. CDN page - 'Content delivery network':
+1
+3. Load Balancer page - 'Load balancer':
+2
+4. Database page - 'Relational database':
+1
+5. Cache page - 'caching improves':
+0
+0
+6. Asynchronism page - 'Message queues':
+1
+7. Communication page - 'TCP' and 'UDP':
+1
+8. Security page - 'Encrypt in transit':
+1
+9. Appendix page - 'Powers of two':
+1

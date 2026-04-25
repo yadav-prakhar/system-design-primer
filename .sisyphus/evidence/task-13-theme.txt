@@ -1,0 +1,6 @@
+Scenario: Theme toggle works
+Steps:
+1) ls -la docs/assets/js/theme.js
+-rw-r--r-- 1 prakhar prakhar 2190 Apr 25 20:16 docs/assets/js/theme.js
+2) grep -r "theme.js" docs/index.html
+  <script src="./assets/js/theme.js"></script>

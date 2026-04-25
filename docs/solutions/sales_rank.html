@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Amazon's Sales Ranking by Category</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/solutions.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="dns.html">DNS</a></li>
+          <li class="nav-item"><a href="cdn.html">CDN</a></li>
+          <li class="nav-item"><a href="load-balancer.html">Load Balancer</a></li>
+          <li class="nav-item"><a href="database.html">Database</a></li>
+          <li class="nav-item"><a href="cache.html">Cache</a></li>
+          <li class="nav-item"><a href="asynchronism.html">Asynchronism</a></li>
+          <li class="nav-item"><a href="communication.html">Communication</a></li>
+          <li class="nav-item"><a href="security.html">Security</a></li>
+          <li class="nav-item"><a href="appendix.html">Appendix</a></li>
+          <li class="nav-item"><a href="solutions.html">Solutions</a></li>
+          <li class="nav-item"><a href="resources.html">Resources</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Solutions" class="solutions-nav">
+        <h2 class="nav-heading">Solutions</h2>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="pastebin.html">Pastebin</a></li>
+          <li class="nav-item"><a href="twitter.html">Twitter</a></li>
+          <li class="nav-item"><a href="web_crawler.html">Web Crawler</a></li>
+          <li class="nav-item"><a href="mint.html">Mint.com</a></li>
+          <li class="nav-item"><a href="social_graph.html">Social Graph</a></li>
+          <li class="nav-item"><a href="query_cache.html">Query Cache</a></li>
+          <li class="nav-item"><a href="sales_rank.html">Sales Rank</a></li>
+          <li class="nav-item"><a href="scaling_aws.html">Scaling AWS</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <header class="solution-header">
+          <h1 class="solution-title">Design Amazon's Sales Ranking by Category</h1>
+          <div class="solution-meta">
+            <div class="solution-meta-item">
+              <span class="solution-meta-label">Difficulty</span>
+              <span class="solution-meta-value"><span class="badge badge-difficulty" data-difficulty="Easy">Easy</span></span>
+            </div>
+            <div class="solution-meta-item">
+              <span class="solution-meta-label">Concepts</span>
+              <div class="solution-concepts">
+                <span class="concept-tag">Ranking</span>
+                <span class="concept-tag">SQL</span>
+                <span class="concept-tag">Sharding</span>
+                <span class="concept-tag">Caching</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="solution-section" id="step-1">
+          <h2>Step 1: Outline use cases and constraints</h2>
+
+          <h3>Use cases</h3>
+          <ul>
+            <li><strong>User</strong> views sales rankings by category</li>
+            <li><strong>Service</strong> updates rankings periodically</li>
+            <li><strong>Service</strong> has high availability</li>
+          </ul>
+
+          <h3>Constraints and assumptions</h3>
+          <ul>
+            <li>Ranking updates can be delayed</li>
+            <li>Read-heavy workload</li>
+          </ul>
+        </section>
+
+        <section class="solution-section" id="step-2">
+          <h2>Step 2: Create a high level design</h2>
+          <div class="solution-diagram">
+            <img src="./assets/images/MzExP06.png" alt="Sales rank architecture" class="lightbox" loading="lazy" />
+          </div>
+        </section>
+
+        <section class="solution-section" id="step-3">
+          <h2>Step 3: Design core components</h2>
+          <p>Design ranking algorithms, caching strategies for hot data, and database sharding by category.</p>
+        </section>
+
+        <section class="solution-section" id="step-4">
+          <h2>Step 4: Scale the design</h2>
+          <p>Address scaling with database sharding and efficient caching.</p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

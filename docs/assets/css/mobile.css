@@ -1,0 +1,143 @@
+/* Mobile Responsive Styles */
+
+/* Mobile-first: Base styles for all screens */
+
+/* Hamburger menu button (hidden on desktop) */
+.hamburger-menu {
+  display: none;
+  background: transparent;
+  border: 2px solid var(--color-stroke);
+  padding: 8px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.hamburger-menu span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  margin: 4px 0;
+  transition: transform 0.2s ease;
+}
+
+/* Mobile breakpoint: < 768px */
+@media (max-width: 767px) {
+  .site {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+  }
+
+  .site-sidebar {
+    display: none;
+    position: fixed;
+    top: var(--layout-header-h, 56px);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--layout-header-h, 56px));
+    background: var(--color-bg);
+    z-index: 100;
+    border-right: none;
+    border-bottom: 2px solid var(--color-stroke);
+    overflow-y: auto;
+  }
+
+  .site-sidebar.active {
+    display: block;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+
+  .site-header {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+  }
+
+  .header-search input {
+    width: 120px;
+  }
+
+  .site-main {
+    padding: 16px;
+  }
+
+  .page-content {
+    font-size: 16px;
+  }
+
+  h1 { font-size: var(--font-size-6, 28px); }
+  h2 { font-size: var(--font-size-5, 22px); }
+  h3 { font-size: var(--font-size-4, 18px); }
+
+  /* Touch targets */
+  .nav-item a,
+  button,
+  .theme-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Tablet breakpoint: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .site {
+    grid-template-columns: 200px 1fr;
+  }
+
+  --layout-sidebar-w: 200px;
+
+  .site-sidebar {
+    width: 200px;
+  }
+
+  .header-search input {
+    width: 150px;
+  }
+}
+
+/* Desktop breakpoint: >= 1024px */
+@media (min-width: 1024px) {
+  /* Default layout - no changes needed */
+}
+
+/* Ensure minimum touch target sizes */
+button,
+a,
+input,
+select,
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prevent text zoom on iOS */
+input[type="text"],
+input[type="search"],
+textarea {
+  font-size: 16px;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive tables */
+table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Code blocks */
+pre {
+  overflow-x: auto;
+  max-width: 100%;
+}

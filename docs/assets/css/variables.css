@@ -1,0 +1,125 @@
+:root {
+  /* =========================
+     Typography
+     Primary: monospace only
+  ========================= */
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --font-size-0: 12px;
+  --font-size-1: 13px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 22px;
+  --font-size-6: 28px;
+  --font-size-7: 36px;
+  --font-size-8: 48px;
+  --font-size-9: 64px;
+
+  --line-height-compact: 1.15;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.65;
+
+  /* =========================
+     Spacing (4px base unit)
+  ========================= */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* =========================
+     Borders (brutalist = sharp edges)
+  ========================= */
+  --border-raw: 0;
+  --border-1: 1px solid;
+  --border-2: 2px solid;
+  --border-color: var(--color-stroke);
+
+  /* =========================
+     Light theme colors (default)
+  ========================= */
+  --color-bg: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-surface-2: #ededed;
+  --color-text: #0a0a0a;
+  --color-muted: #3a3a3a;
+  --color-faint: #6a6a6a;
+
+  --color-primary: #000000;
+  --color-primary-ink: #ffffff;
+
+  --color-accent: #1a1aff;
+  --color-accent-ink: #ffffff;
+
+  --color-success: #006b3f;
+  --color-success-ink: #ffffff;
+
+  --color-warning: #a35a00;
+  --color-warning-ink: #ffffff;
+
+  --color-danger: #b00020;
+  --color-danger-ink: #ffffff;
+
+  --color-link: #0000ee;
+  --color-link-visited: #551a8b;
+  --color-selection-bg: #c7ddff;
+  --color-selection-text: #000000;
+
+  --color-stroke: #000000;
+  --color-stroke-soft: #222222;
+  --color-outline: #000000;
+
+  /* =========================
+     Component tokens
+  ========================= */
+  --shadow-none: none;
+  --shadow-hard: 6px 6px 0 rgba(0, 0, 0, 1);
+
+  --focus-ring: 2px solid var(--color-outline);
+
+  /* =========================
+     High-contrast UI
+  ========================= */
+  --ui-chip-bg: var(--color-surface);
+  --ui-chip-text: var(--color-text);
+}
+
+/* Dark theme (for later toggle implementation) */
+:root[data-theme="dark"] {
+  --color-bg: #070707;
+  --color-surface: #101010;
+  --color-surface-2: #151515;
+  --color-text: #f3f3f3;
+  --color-muted: #c0c0c0;
+  --color-faint: #8f8f8f;
+
+  --color-primary: #ffffff;
+  --color-primary-ink: #000000;
+
+  --color-accent: #4d7dff;
+  --color-accent-ink: #000000;
+
+  --color-success: #14b86a;
+  --color-success-ink: #000000;
+
+  --color-warning: #ff8a2a;
+  --color-warning-ink: #000000;
+
+  --color-danger: #ff4d5a;
+  --color-danger-ink: #000000;
+
+  --color-link: #7fb0ff;
+  --color-link-visited: #b48cff;
+  --color-selection-bg: #2a3b66;
+  --color-selection-text: #ffffff;
+
+  --color-stroke: #ffffff;
+  --color-stroke-soft: #cfcfcf;
+  --color-outline: #ffffff;
+  --shadow-hard: 6px 6px 0 rgba(0, 0, 0, 0.9);
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Twitter Timeline and Search</title>
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/variables.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/solutions.css" />
+  <link rel="stylesheet" href="./assets/css/prism-theme.css" />
+  <link rel="stylesheet" href="./assets/css/lightbox.css" />
+  <link rel="stylesheet" href="./assets/css/mobile.css" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="site">
+    <header class="site-header" role="banner">
+      <a href="index.html" class="site-title">System Design Primer</a>
+
+      <div class="header-tools" aria-label="Site tools">
+        <form class="header-search" action="#" method="get" role="search">
+          <label for="site-search" class="sr-only">Search</label>
+          <input id="site-search" name="q" type="search" placeholder="Search..." autocomplete="off" />
+        </form>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+      </div>
+
+      <div class="progress-indicator" aria-label="Progress">Progress: 0%</div>
+    </header>
+
+    <aside class="site-sidebar" aria-label="Topic navigation">
+      <nav aria-label="Primary">
+        <h2 class="nav-heading">Topics</h2>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="dns.html">DNS</a></li>
+          <li class="nav-item"><a href="cdn.html">CDN</a></li>
+          <li class="nav-item"><a href="load-balancer.html">Load Balancer</a></li>
+          <li class="nav-item"><a href="database.html">Database</a></li>
+          <li class="nav-item"><a href="cache.html">Cache</a></li>
+          <li class="nav-item"><a href="asynchronism.html">Asynchronism</a></li>
+          <li class="nav-item"><a href="communication.html">Communication</a></li>
+          <li class="nav-item"><a href="security.html">Security</a></li>
+          <li class="nav-item"><a href="appendix.html">Appendix</a></li>
+          <li class="nav-item"><a href="solutions.html">Solutions</a></li>
+          <li class="nav-item"><a href="resources.html">Resources</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Solutions" class="solutions-nav">
+        <h2 class="nav-heading">Solutions</h2>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="pastebin.html">Pastebin</a></li>
+          <li class="nav-item"><a href="twitter.html">Twitter</a></li>
+          <li class="nav-item"><a href="web_crawler.html">Web Crawler</a></li>
+          <li class="nav-item"><a href="mint.html">Mint.com</a></li>
+          <li class="nav-item"><a href="social_graph.html">Social Graph</a></li>
+          <li class="nav-item"><a href="query_cache.html">Query Cache</a></li>
+          <li class="nav-item"><a href="sales_rank.html">Sales Rank</a></li>
+          <li class="nav-item"><a href="scaling_aws.html">Scaling AWS</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main id="main" class="site-main" role="main">
+      <article class="page-content">
+        <header class="solution-header">
+          <h1 class="solution-title">Design Twitter Timeline and Search</h1>
+          <div class="solution-meta">
+            <div class="solution-meta-item">
+              <span class="solution-meta-label">Difficulty</span>
+              <span class="solution-meta-value"><span class="badge badge-difficulty" data-difficulty="Hard">Hard</span></span>
+            </div>
+            <div class="solution-meta-item">
+              <span class="solution-meta-label">Concepts</span>
+              <div class="solution-concepts">
+                <span class="concept-tag">Fan-out</span>
+                <span class="concept-tag">Timeline</span>
+                <span class="concept-tag">Search</span>
+                <span class="concept-tag">CQRS</span>
+                <span class="concept-tag">Message queues</span>
+                <span class="concept-tag">Cache</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="solution-section" id="step-1">
+          <h2>Step 1: Outline use cases and constraints</h2>
+          <p>Gather requirements and scope the problem. Ask questions to clarify use cases and constraints. Discuss assumptions.</p>
+
+          <h3>Use cases</h3>
+          <h4>We'll scope the problem to handle only the following use cases</h4>
+          <ul>
+            <li><strong>User</strong> posts a tweet
+              <ul>
+                <li><strong>Service</strong> pushes tweets to followers, sending push notifications and emails</li>
+              </ul>
+            </li>
+            <li><strong>User</strong> views the user timeline (activity from the user)</li>
+            <li><strong>User</strong> views the home timeline (activity from people the user is following)</li>
+            <li><strong>User</strong> searches keywords</li>
+            <li><strong>Service</strong> has high availability</li>
+          </ul>
+
+          <h4>Out of scope</h4>
+          <ul>
+            <li><strong>Service</strong> pushes tweets to the Twitter Firehose and other streams</li>
+            <li><strong>Service</strong> strips out tweets based on users' visibility settings</li>
+            <li>Analytics</li>
+          </ul>
+
+          <h3>Constraints and assumptions</h3>
+          <h4>General</h4>
+          <ul>
+            <li>Traffic is not evenly distributed</li>
+            <li>Posting a tweet should be fast</li>
+            <li>100 million active users</li>
+            <li>500 million tweets per day or 15 billion tweets per month</li>
+            <li>250 billion read requests per month</li>
+            <li>10 billion searches per month</li>
+          </ul>
+
+          <h4>Timeline</h4>
+          <ul>
+            <li>Viewing the timeline should be fast</li>
+            <li>Twitter is more read heavy than write heavy</li>
+            <li>Ingesting tweets is write heavy</li>
+          </ul>
+
+          <h4>Search</h4>
+          <ul>
+            <li>Searching should be fast</li>
+            <li>Search is read-heavy</li>
+          </ul>
+
+          <h3>Calculate usage</h3>
+          <ul>
+            <li>Size per tweet: ~10 KB average (including media)</li>
+            <li>150 TB of new tweet content per month</li>
+            <li>100 thousand read requests per second</li>
+            <li>6,000 tweets per second</li>
+            <li>60 thousand tweets delivered on fanout per second</li>
+            <li>4,000 search requests per second</li>
+          </ul>
+        </section>
+
+        <section class="solution-section" id="step-2">
+          <h2>Step 2: Create a high level design</h2>
+          <p>Outline a high level design with all important components.</p>
+          <div class="solution-diagram">
+            <img src="./assets/images/48tEA2j.png" alt="Twitter high level architecture" class="lightbox" loading="lazy" />
+          </div>
+        </section>
+
+        <section class="solution-section" id="step-3">
+          <h2>Step 3: Design core components</h2>
+
+          <h3>Use case: User posts a tweet</h3>
+          <p>Delivering tweets and building the home timeline is trickier. Fanning out tweets to all followers will overload a traditional relational database. We'll want to choose a data store with fast writes such as a NoSQL database or Memory Cache.</p>
+          <ul>
+            <li>The <strong>Client</strong> posts a tweet to the <strong>Web Server</strong></li>
+            <li>The <strong>Write API</strong> stores the tweet in the user's timeline on a <strong>SQL database</strong></li>
+            <li>The <strong>Fan Out Service</strong> queries the <strong>User Graph Service</strong> to find followers</li>
+            <li>Stores the tweet in the <em>home timeline of followers</em> in a <strong>Memory Cache</strong></li>
+            <li>Stores the tweet in the <strong>Search Index Service</strong></li>
+            <li>Uses the <strong>Notification Service</strong> to send push notifications</li>
+          </ul>
+
+          <h3>Use case: User views the home timeline</h3>
+          <ul>
+            <li>The <strong>Read API</strong> contacts the <strong>Timeline Service</strong></li>
+            <li>Gets timeline data from <strong>Memory Cache</strong></li>
+            <li>Queries <strong>Tweet Info Service</strong> for tweet details</li>
+            <li>Queries <strong>User Info Service</strong> for user details</li>
+          </ul>
+
+          <h3>Use case: User searches keywords</h3>
+          <ul>
+            <li>The <strong>Search API</strong> contacts the <strong>Search Service</strong></li>
+            <li>Parses/tokenizes the input query</li>
+            <li>Queries the <strong>Search Cluster</strong> (Lucene)</li>
+            <li>Scatter gathers results, merges, ranks, and returns</li>
+          </ul>
+        </section>
+
+        <section class="solution-section" id="step-4">
+          <h2>Step 4: Scale the design</h2>
+          <p>Identify and address bottlenecks, given the constraints.</p>
+          <div class="solution-diagram">
+            <img src="./assets/images/jrUBAF7.png" alt="Twitter scaled architecture" class="lightbox" loading="lazy" />
+          </div>
+
+          <p>The <strong>Fanout Service</strong> is a potential bottleneck. Users with millions of followers could take several minutes to have their tweets go through the fanout process.</p>
+
+          <p>Optimizations:</p>
+          <ul>
+            <li>Keep only several hundred tweets for each home timeline in the Memory Cache</li>
+            <li>Keep only active users' home timeline info in Memory Cache</li>
+            <li>Store only a month of tweets in Tweet Info Service</li>
+            <li>Store only active users in User Info Service</li>
+          </ul>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-left">© System Design Primer</div>
+      <div class="footer-right">
+        <a href="https://github.com/donnemartin/system-design-primer">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/search.js"></script>
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/lightbox.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script defer src="./assets/js/prism-init.js"></script>
+</body>
+</html>

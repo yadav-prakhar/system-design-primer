@@ -1,0 +1,3 @@
+Theme CSS exists:
+- File: docs/assets/css/prism-theme.css
+- Notes: brutalist/high-contrast styling, sharp edges (border-radius: 0), monospace code font.
